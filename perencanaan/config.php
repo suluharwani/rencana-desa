@@ -1,13 +1,41 @@
 <?php
 declare(strict_types=1);
 
+function load_env(string $path): void {
+    if (!is_readable($path)) {
+        return;
+    }
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($lines === false) {
+        return;
+    }
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || str_starts_with($line, '#') || !str_contains($line, '=')) {
+            continue;
+        }
+        [$key, $value] = explode('=', $line, 2);
+        $key = trim($key);
+        $value = trim($value);
+        if ($value !== '' && (($value[0] === '"' && substr($value, -1) === '"') || ($value[0] === "'" && substr($value, -1) === "'"))) {
+            $value = substr($value, 1, -1);
+        }
+        if ($key !== '' && getenv($key) === false) {
+            putenv($key . '=' . $value);
+            $_ENV[$key] = $value;
+        }
+    }
+}
+
+load_env(__DIR__ . '/.env');
+
 session_start();
 
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', 3306);
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'perencanaan_desa');
+define('DB_HOST', getenv('DB_HOST') !== false ? (string)getenv('DB_HOST') : '127.0.0.1');
+define('DB_PORT', (int)(getenv('DB_PORT') !== false ? getenv('DB_PORT') : 3306));
+define('DB_USER', getenv('DB_USER') !== false ? (string)getenv('DB_USER') : 'root');
+define('DB_PASS', getenv('DB_PASS') !== false ? (string)getenv('DB_PASS') : '');
+define('DB_NAME', getenv('DB_NAME') !== false ? (string)getenv('DB_NAME') : 'perencanaan_desa');
 
 define('APP_NAME', 'Pengelolaan Perencanaan Desa');
 define('ADMIN_USER', 'admin');

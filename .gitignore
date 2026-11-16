@@ -2,6 +2,10 @@
 .commandcode/
 *.log
 
+# Environment / secrets
+.env
+perencanaan/.env
+
 # OS/editor
 .DS_Store
 Thumbs.db

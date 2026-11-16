@@ -13,15 +13,21 @@ Aplikasi web sederhana (PHP native + MySQL/PDO) untuk mengelola data Master Plan
 - PHP 8+ dengan ekstensi `pdo_mysql`
 - MySQL/MariaDB berjalan di local
 
-## Konfigurasi Database (default)
-Sesuai permintaan, koneksi default di `config.php`:
-- Host: `127.0.0.1`
-- Port: `3306`
-- User: `root`
-- Password: *(kosong/tanpa password)*
-- Database: `perencanaan_desa` (dibuat otomatis jika belum ada)
+## Konfigurasi Database (.env)
+Konfigurasi database dibaca dari file `perencanaan/.env` (tidak di-commit ke Git). Salin contoh konfigurasi lalu sesuaikan:
 
-Pastikan service MySQL aktif di port 3306. Jika kredensial MySQL lokal Anda berbeda, sesuaikan konstanta `DB_HOST/DB_PORT/DB_USER/DB_PASS` di `config.php`.
+```bash
+cp .env.example .env
+```
+
+Isi default `.env.example`:
+- `DB_HOST=127.0.0.1`
+- `DB_PORT=3306`
+- `DB_USER=root`
+- `DB_PASS=` *(kosong/tanpa password)*
+- `DB_NAME=perencanaan_desa` (dibuat otomatis jika belum ada)
+
+Pastikan service MySQL aktif di port 3306. Jika kredensial MySQL lokal Anda berbeda, ubah nilai pada `.env`. File `.env` sudah di-ignore oleh Git.
 
 ## Kredensial Login Admin
 - Username: `admin`
