@@ -46,6 +46,13 @@ function status_class(string $s): string {
     if (str_starts_with($s, 'Biru')) return 'st-blue';
     return 'st-gray';
 }
+function status_color(string $s): string {
+    if (str_starts_with($s, 'Hijau')) return '#176b45';
+    if (str_starts_with($s, 'Kuning')) return '#c18a2d';
+    if (str_starts_with($s, 'Merah')) return '#b94c42';
+    if (str_starts_with($s, 'Biru')) return '#286b9b';
+    return '#8a9890';
+}
 function nl_to_list(?string $text): array {
     $text = trim((string)$text);
     if ($text === '') return [];
@@ -54,8 +61,25 @@ function nl_to_list(?string $text): array {
     foreach ($parts as $p) { $p = trim($p, " \t\n\r\0\x0B-•"); if ($p !== '') $out[] = $p; }
     return $out;
 }
+function parse_pct($v): int {
+    if (preg_match('/(\d{1,3})/', (string)$v, $m)) return max(0, min(100, (int)$m[1]));
+    return 0;
+}
+function donut_svg(int $pct, string $color = '#176b45', string $label = ''): string {
+    $r = 42; $c = 2 * M_PI * $r; $dash = ($pct / 100) * $c; $gap = $c - $dash;
+    $pctText = $pct . '%';
+    return '<svg viewBox="0 0 120 120" class="donut" role="img" aria-label="'.h($label.' '.$pctText).'">'
+      .'<circle cx="60" cy="60" r="'.$r.'" fill="none" stroke="#e6ece7" stroke-width="12"></circle>'
+      .'<circle cx="60" cy="60" r="'.$r.'" fill="none" stroke="'.$color.'" stroke-width="12" stroke-linecap="round" stroke-dasharray="'.round($dash,2).' '.round($gap,2).'" transform="rotate(-90 60 60)"></circle>'
+      .'<text x="60" y="58" text-anchor="middle" font-size="20" font-weight="800" fill="#18251f">'.$pctText.'</text>'
+      .'<text x="60" y="74" text-anchor="middle" font-size="10" fill="#65736b">'.h($label).'</text>'
+      .'</svg>';
+}
 $generated = date('d-m-Y H:i');
 $statusOrder = ['Merah · Bermasalah', 'Kuning · Waspada', 'Hijau · Sesuai', 'Biru · Selesai', 'Abu-abu · Belum mulai', 'Belum dinilai'];
+$sortedStatus = [];
+foreach ($statusOrder as $so) { if (isset($statusCounts[$so])) $sortedStatus[$so] = $statusCounts[$so]; }
+foreach ($statusCounts as $s => $c) { if (!isset($sortedStatus[$s])) $sortedStatus[$s] = $c; }
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -87,6 +111,11 @@ h2{margin:0 0 10px;font-size:22px}h3{margin:0 0 8px;font-size:16px}.muted{color:
 .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
 .kpi .item{background:#f7faf7;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
 .kpi .num{font-size:24px;font-weight:800}.kpi .lbl{font-size:12px;color:var(--muted)}
+.inf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:stretch}
+.donut-wrap{text-align:center;padding:8px}.donut{width:140px;height:140px;max-width:100%}.donut-cap{font-size:13px;font-weight:700;margin-top:4px}.donut-sub{font-size:12px;color:var(--muted)}
+.stack-bar{display:flex;height:26px;border-radius:13px;overflow:hidden;background:#e6ece7;margin:10px 0}.stack-bar div{height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px}.legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px}.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.hbar{margin:10px 0}.hbar-head{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin-bottom:4px}.hbar-track{height:14px;background:#e6ece7;border-radius:99px;overflow:hidden}.hbar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#176b45,#2b8b61)}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
 table{width:100%;border-collapse:collapse;min-width:700px;font-size:13px}th,td{padding:10px;border-top:1px solid #e8eee9;text-align:left;vertical-align:top}
 th{background:#edf4ef;color:#345b45;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border-top:0}
@@ -176,6 +205,67 @@ ul.clean{margin:6px 0 0;padding-left:18px}.clean li{margin:4px 0;font-size:13px}
     </div>
   </section>
   <?php endif; ?>
+
+  <section class="section">
+    <h2>Infografis Perkembangan Program</h2>
+    <div class="grid">
+      <div class="card c12">
+        <div class="inf-grid">
+          <div class="donut-wrap">
+            <?php echo donut_svg($checkPct, '#176b45', 'Checklist'); ?>
+            <div class="donut-cap">Checklist 90 Hari</div>
+            <div class="donut-sub"><?php echo $checkDone; ?> dari <?php echo $checkTotal; ?> item selesai</div>
+          </div>
+          <div class="donut-wrap">
+            <?php echo donut_svg($monitorProgress, '#286b9b', 'On-track'); ?>
+            <div class="donut-cap">Kegiatan Sesuai/Selesai</div>
+            <div class="donut-sub"><?php echo ($monitorDone + $monitorOk); ?> dari <?php echo $monitorTotal; ?> kegiatan (Hijau/Biru)</div>
+          </div>
+          <div class="donut-wrap">
+            <?php $attPct = $monitorTotal ? (int)round((($monitorWarn + $monitorBad) * 100) / $monitorTotal) : 0; echo donut_svg($attPct, ($monitorBad>0?'#b94c42':'#c18a2d'), 'Perhatian'); ?>
+            <div class="donut-cap">Perlu Perhatian</div>
+            <div class="donut-sub"><?php echo ($monitorWarn + $monitorBad); ?> kegiatan (Waspada/Bermasalah)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card c6">
+        <h3>Komposisi Status Kegiatan</h3>
+        <?php if ($monitorTotal > 0): ?>
+          <div class="stack-bar">
+            <?php foreach ($sortedStatus as $s => $c): $w = ($c / $monitorTotal) * 100; ?>
+              <div style="width:<?php echo $w; ?>%;background:<?php echo status_color($s); ?>" title="<?php echo h($s.': '.$c); ?>"></div>
+            <?php endforeach; ?>
+          </div>
+          <div class="legend">
+            <?php foreach ($sortedStatus as $s => $c): ?>
+              <span><i class="dot" style="background:<?php echo status_color($s); ?>"></i><?php echo h($s); ?>: <b><?php echo $c; ?></b></span>
+            <?php endforeach; ?>
+          </div>
+        <?php else: ?><div class="muted">Belum ada data monitoring.</div><?php endif; ?>
+      </div>
+
+      <div class="card c6">
+        <h3>Progres Fisik per Kegiatan</h3>
+        <?php if ($monitoring): foreach ($monitoring as $m): $pp = parse_pct($m['progres_fisik'] ?? '0'); $col = status_color($m['status'] ?? ''); ?>
+          <div class="hbar">
+            <div class="hbar-head"><span><b><?php echo h($m['kode']); ?></b> — <?php echo h($m['program']); ?></span><span><b><?php echo $pp; ?>%</b></span></div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:<?php echo $pp; ?>%;background:linear-gradient(90deg,<?php echo $col; ?>,<?php echo $col; ?>cc)"></div></div>
+          </div>
+        <?php endforeach; else: ?><div class="muted">Belum ada data monitoring.</div><?php endif; ?>
+      </div>
+
+      <div class="card c12">
+        <h3>Progres per Tahap Checklist 90 Hari</h3>
+        <?php if ($groupedChecklist): foreach ($groupedChecklist as $tahap => $items): $done = 0; foreach($items as $i){ if((int)$i['selesai']===1) $done++; } $tot = count($items); $pct = $tot? (int)round($done*100/$tot):0; ?>
+          <div class="hbar">
+            <div class="hbar-head"><span><?php echo h($tahap); ?></span><span><b><?php echo $pct; ?>%</b> <span class="muted">(<?php echo $done; ?>/<?php echo $tot; ?>)</span></span></div>
+            <div class="hbar-track"><div class="hbar-fill" style="width:<?php echo $pct; ?>%"></div></div>
+          </div>
+        <?php endforeach; else: ?><div class="muted">Belum ada item checklist.</div><?php endif; ?>
+      </div>
+    </div>
+  </section>
 
   <?php if (!empty($byStatus['Merah · Bermasalah']) || !empty($byStatus['Kuning · Waspada'])): ?>
   <section class="section">
