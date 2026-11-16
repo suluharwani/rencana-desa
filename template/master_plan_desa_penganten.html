@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Master Plan dan Roadmap Pembangunan Desa Penganten, Kecamatan Klambu, Kabupaten Grobogan.">
+<title>Master Plan Desa Penganten 2027–2034</title>
+<style>
+:root{--green:#176b45;--green2:#21845a;--mint:#eaf5ee;--ink:#18251f;--muted:#65736b;--line:#dce6df;--bg:#f4f7f4;--white:#fff;--gold:#c18a2d;--blue:#286b9b;--red:#b94c42;--shadow:0 8px 28px rgba(25,60,40,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+a{color:inherit}.wrap{max-width:1180px;margin:auto;padding:0 22px}
+.hero{background:linear-gradient(120deg,#103f2c,#176b45 58%,#2b8b61);color:white;padding:54px 0 42px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff22;border-radius:50%;right:-90px;top:-190px;box-shadow:0 0 0 45px #ffffff0b,0 0 0 95px #ffffff08}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:800;color:#c8e6d3}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.08;letter-spacing:-.04em;margin:13px 0}
+.hero p{max-width:720px;color:#e0eee5;font-size:17px;margin:12px 0 22px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:9px}.chip{border:1px solid #ffffff45;border-radius:99px;padding:6px 12px;font-size:12px;color:#f0faf3}
+nav{position:sticky;top:0;z-index:20;background:#ffffffed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.navinner{display:flex;gap:6px;overflow:auto;padding:9px 0;white-space:nowrap}
+nav a{text-decoration:none;font-size:12px;font-weight:700;color:#52645a;padding:8px 11px;border-radius:8px}nav a:hover{background:var(--mint);color:var(--green)}
+main{padding:30px 0 60px}.section{margin:0 0 34px;scroll-margin-top:76px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}
+.kicker{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--green2);font-weight:800}
+h2{font-size:26px;line-height:1.2;letter-spacing:-.025em;margin:5px 0 0}
+h3{font-size:17px;margin:0 0 8px;line-height:1.3}
+.lead{color:var(--muted);max-width:760px;margin:8px 0 0}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:var(--shadow)}
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+.stat{font-size:30px;font-weight:850;letter-spacing:-.04em;color:var(--green)}.small{font-size:12px;color:var(--muted)}
+.pillar{display:flex;gap:12px;align-items:flex-start}.ico{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;border-radius:12px;background:var(--mint);font-size:20px}
+.pillar p,.card p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.callout{background:#edf5ef;border-left:4px solid var(--green2);padding:15px 17px;border-radius:0 12px 12px 0;color:#315542}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:13px;background:white}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px}
+th{text-align:left;background:#edf4ef;color:#345b45;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:12px}
+td{padding:11px 12px;border-top:1px solid #e8eee9;vertical-align:top}tbody tr:hover{background:#fbfdfb}
+.badge{display:inline-block;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:800;background:#e8f4ec;color:#176b45}
+.badge.gold{background:#fbf1df;color:#8a601b}.badge.blue{background:#e8f1f8;color:#286b9b}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.phase{border-top:4px solid var(--green2);padding:15px;background:white;border-radius:0 0 13px 13px;border:1px solid var(--line);border-top:4px solid var(--green2)}
+.phase:nth-child(2){border-top-color:#3884a9}.phase:nth-child(3){border-top-color:#c18a2d}.phase:nth-child(4){border-top-color:#7d6ca7}
+.phase .period{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}
+.phase ul,.clean{padding-left:18px;margin:8px 0 0}.phase li,.clean li{margin:5px 0;font-size:13px}
+.yeargrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.year{background:white;border:1px solid var(--line);border-radius:13px;padding:15px}
+.year .num{font-size:25px;font-weight:900;color:var(--green);letter-spacing:-.04em}
+.months{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.month{background:white;border:1px solid var(--line);border-radius:12px;padding:13px}
+.month b{display:block;color:var(--green);font-size:13px;margin-bottom:5px}.month p{font-size:12px;color:var(--muted);margin:0}
+.quarter{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.qcard{background:white;border:1px solid var(--line);border-radius:13px;padding:17px}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.qhead strong{font-size:18px}.qcard ul{padding-left:18px;margin:8px 0}.qcard li{font-size:13px;margin:5px 0}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+.flow span{background:#edf5ef;border:1px solid #d5e7da;border-radius:9px;padding:9px 11px;font-size:12px;font-weight:700}
+.flow i{font-style:normal;color:var(--green);font-weight:900}
+.kpi{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.kpi div{background:#f7faf7;border:1px solid var(--line);border-radius:10px;padding:11px}
+.kpi b{display:block;color:var(--green);font-size:13px}.kpi span{font-size:11px;color:var(--muted)}
+details{background:white;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:9px 0}
+summary{font-weight:800;cursor:pointer;color:#264c37}
+details p,details li{font-size:13px;color:var(--muted)}
+.checklist label{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:13px}
+.checklist input{accent-color:var(--green);margin-top:4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--green);color:white;font-weight:800;cursor:pointer}.btn.secondary{background:#e8f1eb;color:var(--green)}.btn:hover{filter:brightness(.96)}
+footer{background:#123c2b;color:#dcebe1;padding:25px 0;font-size:12px}
+.note{font-size:12px;color:var(--muted)}.rule{height:1px;background:var(--line);margin:16px 0}
+@media(max-width:850px){.span-3,.span-4{grid-column:span 6}.span-8,.span-6{grid-column:span 12}.timeline{grid-template-columns:repeat(2,1fr)}.yeargrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.wrap{padding:0 15px}.hero{padding:38px 0 30px}.span-3,.span-4,.span-6,.span-8,.span-12{grid-column:span 12}.months{grid-template-columns:repeat(2,1fr)}.timeline,.quarter{grid-template-columns:1fr}.section-head{display:block}.yeargrid{grid-template-columns:1fr 1fr}}
+@media print{nav,.tools{display:none}.hero{print-color-adjust:exact;-webkit-print-color-adjust:exact}.card,.phase,.year,.month,.qcard{box-shadow:none;break-inside:avoid}body{background:white}.section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <div class="eyebrow">Dokumen perencanaan pembangunan desa</div>
+  <h1>MASTER PLAN<br>DESA PENGANTEN</h1>
+  <p>Roadmap pembangunan, pemberdayaan masyarakat, pelayanan publik, dan sistem monitoring untuk Desa Penganten, Kecamatan Klambu, Kabupaten Grobogan.</p>
+  <div class="hero-meta">
+   <span class="chip">Kecamatan Klambu</span><span class="chip">Kabupaten Grobogan</span><span class="chip">Rancangan periode 8 tahun</span><span class="chip">Versi konsep 1.0</span>
+  </div>
+ </div>
+</header>
+<nav><div class="wrap navinner">
+ <a href="#arah">Arah</a><a href="#baseline">Data awal</a><a href="#pilar">6 pilar</a><a href="#organisasi">Pelaksana</a><a href="#roadmap">Roadmap 8 tahun</a><a href="#tahun1">Tahun pertama</a><a href="#monitoring">Monitoring</a><a href="#anggaran">Anggaran</a><a href="#aksi">Langkah awal</a>
+</div></nav>
+<main class="wrap">
+<section class="section" id="arah">
+ <div class="section-head"><div><div class="kicker">01 / Arah pembangunan</div><h2>Penganten Berdaya</h2><p class="lead">Pertanian kuat, pemuda hebat, pendidikan maju, pemerintahan melayani.</p></div><div class="tools"><button class="btn secondary" onclick="window.print()">Cetak / Simpan PDF</button></div></div>
+ <div class="grid">
+  <div class="card span-8"><h3>Visi operasional</h3><p style="font-size:16px;color:#294b38">Mewujudkan Desa Penganten yang mandiri, produktif, adil, terbuka, dan berdaya melalui penguatan ekonomi pertanian, pemerataan pembangunan, pemberdayaan pemuda, peningkatan pendidikan, serta pelayanan publik yang mudah dan transparan.</p><div class="rule"></div><h3>Prinsip pelaksanaan</h3><div class="flow"><span>Berbasis data</span><i>→</i><span>Partisipatif</span><i>→</i><span>Prioritas adil</span><i>→</i><span>Anggaran sah</span><i>→</i><span>Terukur</span><i>→</i><span>Terbuka</span></div></div>
+  <div class="card span-4"><h3>Tujuan utama</h3><ul class="clean"><li>Program memiliki PIC dan jadwal.</li><li>Anggaran sesuai kewenangan dan APBDes.</li><li>Manfaat dirasakan lintas dusun.</li><li>Progres diperiksa setiap bulan.</li><li>Hasil dilaporkan kepada masyarakat.</li></ul></div>
+ </div>
+</section>
+<section class="section" id="baseline">
+ <div class="section-head"><div><div class="kicker">02 / Kondisi awal</div><h2>Baseline Desa Penganten</h2><p class="lead">Angka historis berikut hanya menjadi titik awal. Validasi ulang diperlukan sebelum target dan anggaran ditetapkan.</p></div></div>
+ <div class="grid">
+  <div class="card span-3"><div class="small">Luas wilayah</div><div class="stat">7,82</div><div class="small">km² · data historis publikasi 2023</div></div>
+  <div class="card span-3"><div class="small">Penduduk historis</div><div class="stat">4.553</div><div class="small">jiwa · data administrasi 2022</div></div>
+  <div class="card span-3"><div class="small">Laki-laki</div><div class="stat">2.319</div><div class="small">jiwa · data historis</div></div>
+  <div class="card span-3"><div class="small">Perempuan</div><div class="stat">2.234</div><div class="small">jiwa · data historis</div></div>
+  <div class="card span-12"><h3>Data yang harus diverifikasi pada 90 hari pertama</h3><div class="grid">
+   <div class="span-4"><ul class="clean"><li>Jumlah dusun, RT/RW, KK dan penduduk terbaru.</li><li>Luas sawah, komoditas, kalender tanam.</li><li>Kelompok tani dan anggota aktif.</li></ul></div>
+   <div class="span-4"><ul class="clean"><li>Pompa, saluran irigasi, jalan usaha tani.</li><li>Produksi jagung per musim dan pascapanen.</li><li>UMKM, usaha rumah tangga, potensi pasar.</li></ul></div>
+   <div class="span-4"><ul class="clean"><li>Data siswa per jenjang dan kebutuhan bantuan.</li><li>Organisasi pemuda dan fasilitas olahraga.</li><li>Kondisi kendaraan layanan dan akses kesehatan.</li></ul></div>
+  </div><p class="note">Sumber angka historis: Kecamatan Klambu Dalam Angka 2023. Jangan menggunakan angka tersebut sebagai data penduduk terkini.</p></div>
+ </div>
+</section>
+<section class="section" id="pilar">
+ <div class="section-head"><div><div class="kicker">03 / Enam pilar</div><h2>Program utama dan target hasil</h2></div></div>
+ <div class="grid">
+  <div class="card span-4"><div class="pillar"><div class="ico">🌾</div><div><h3>1. Pertanian untuk petani</h3><p>Pompanisasi dikelola kelompok tani, kas transparan, perbaikan irigasi/jalan usaha tani, dan kajian pengeringan jagung.</p></div></div><div class="rule"></div><b class="small">Indikator</b><ul class="clean"><li>Seluruh pompa terinventarisasi.</li><li>Ada operator, SOP, tarif dan buku kas.</li><li>Data kebutuhan irigasi dan jalan tersedia.</li><li>Studi kelayakan pengeringan selesai.</li></ul></div>
+  <div class="card span-4"><div class="pillar"><div class="ico">🏗️</div><div><h3>2. Pembangunan adil</h3><p>Pemetaan kebutuhan per dusun, skor prioritas, musyawarah, pelaksanaan dan pengawasan terbuka.</p></div></div><div class="rule"></div><b class="small">Indikator</b><ul class="clean"><li>Setiap dusun memiliki daftar usulan.</li><li>Usulan memiliki skor dan status.</li><li>Realisasi fisik dan keuangan dilaporkan.</li><li>Ada daftar pekerjaan tertunda.</li></ul></div>
+  <div class="card span-4"><div class="pillar"><div class="ico">⚽</div><div><h3>3. Pemuda berprestasi</h3><p>Karang taruna per dusun, pembinaan sepak bola/voli/futsal, pasar rakyat dan kewirausahaan pemuda.</p></div></div><div class="rule"></div><b class="small">Indikator</b><ul class="clean"><li>Pengurus aktif dan program kerja tersedia.</li><li>Latihan dan kegiatan rutin berjalan.</li><li>Atlet dan prestasi tercatat.</li><li>UMKM terlibat dalam pasar rakyat.</li></ul></div>
+  <div class="card span-4"><div class="pillar"><div class="ico">🎓</div><div><h3>4. Pendidikan masa depan</h3><p>Database siswa terbatas, pemetaan kebutuhan, prestasi, minat, informasi beasiswa dan pendampingan.</p></div></div><div class="rule"></div><b class="small">Indikator</b><ul class="clean"><li>Data siswa terverifikasi dan aman.</li><li>Siswa yang perlu bantuan teridentifikasi.</li><li>Pendampingan seleksi/beasiswa tercatat.</li><li>Evaluasi pendidikan per semester.</li></ul></div>
+  <div class="card span-4"><div class="pillar"><div class="ico">💻</div><div><h3>5. Pelayanan digital</h3><p>Pengajuan surat online, nomor tiket, status proses, notifikasi, arsip, pengaduan dan jalur layanan offline.</p></div></div><div class="rule"></div><b class="small">Indikator</b><ul class="clean"><li>Portal dan SOP pelayanan aktif.</li><li>Permohonan memiliki nomor tiket.</li><li>Waktu layanan dipantau.</li><li>Data pribadi terlindungi.</li></ul></div>
+  <div class="card span-4"><div class="pillar"><div class="ico">🚑</div><div><h3>6. Mobil siaga</h3><p>Kajian kebutuhan, koordinasi fasilitas kesehatan, biaya operasional, pengemudi, SOP dan pengadaan sesuai APBDes.</p></div></div><div class="rule"></div><b class="small">Indikator</b><ul class="clean"><li>Studi kebutuhan dan biaya tersedia.</li><li>Pengemudi dan SOP ditetapkan.</li><li>Anggaran operasional tersedia.</li><li>Log penggunaan dan perawatan tercatat.</li></ul></div>
+ </div>
+</section>
+<section class="section" id="organisasi">
+ <div class="section-head"><div><div class="kicker">04 / Tata kelola</div><h2>Struktur pelaksana dan tanggung jawab</h2></div></div>
+ <div class="card">
+  <div style="background:#eaf5ee;border:1px solid #d6e8dc;border-radius:11px;text-align:center;padding:14px"><b>KEPALA DESA</b><div class="small">Pengarah kebijakan dan penanggung jawab pemerintahan</div></div>
+  <div style="text-align:center;color:var(--green);font-weight:900;padding:7px">↓</div>
+  <div class="grid">
+   <div class="card span-3"><b>Sekretaris Desa</b><p>Koordinasi administrasi, perencanaan, pelaporan dan konsolidasi data.</p></div>
+   <div class="card span-3"><b>Kaur/Kasi terkait</b><p>Pelaksanaan kegiatan sesuai bidang tugas dan kewenangan.</p></div>
+   <div class="card span-3"><b>Kepala Dusun</b><p>Pendataan wilayah, penyerapan aspirasi dan pemantauan lapangan.</p></div>
+   <div class="card span-3"><b>Operator pelayanan</b><p>Portal, tiket layanan, arsip dan statistik pelayanan.</p></div>
+  </div>
+  <div class="rule"></div><b>Mitra partisipasi dan pengawasan</b><p>BPD sesuai fungsi pengawasan dan representasi; kelompok tani; karang taruna; PKK; sekolah; tokoh masyarakat; UMKM; serta warga. Mitra tidak menggantikan kewenangan formal perangkat desa.</p>
+ </div>
+ <div class="tablewrap" style="margin-top:13px"><table><thead><tr><th>Bidang</th><th>Koordinator</th><th>Mitra utama</th><th>Dokumen kontrol</th></tr></thead><tbody>
+ <tr><td>Pertanian</td><td>Perangkat sesuai bidang</td><td>Kelompok tani, PPL</td><td>Inventaris, SOP, buku kas, laporan pompa</td></tr>
+ <tr><td>Infrastruktur</td><td>Perangkat sesuai bidang</td><td>Kadus, tim pelaksana kegiatan</td><td>Usulan, skor prioritas, RAB, foto progres</td></tr>
+ <tr><td>Kepemudaan</td><td>Perangkat sesuai bidang</td><td>Karang taruna</td><td>Program kerja, daftar kegiatan, laporan dana</td></tr>
+ <tr><td>Pendidikan</td><td>Petugas yang ditunjuk</td><td>Sekolah, orang tua, relawan</td><td>Database terbatas, daftar pendampingan</td></tr>
+ <tr><td>Digitalisasi</td><td>Sekretaris desa/koordinator</td><td>Operator pelayanan</td><td>SOP, tiket, log layanan, backup</td></tr>
+ <tr><td>Mobil siaga</td><td>Perangkat yang ditunjuk</td><td>Puskesmas/petugas layanan</td><td>SOP, log perjalanan, perawatan</td></tr>
+ </tbody></table></div>
+</section>
+<section class="section" id="roadmap">
+ <div class="section-head"><div><div class="kicker">05 / Roadmap strategis</div><h2>Roadmap delapan tahun</h2><p class="lead">Tahun pelaksanaan dihitung sejak awal masa jabatan. Label 2027–2034 adalah contoh kalender dan harus disesuaikan dengan tanggal pelantikan serta dokumen resmi.</p></div></div>
+ <div class="timeline">
+  <div class="phase"><div class="period">Tahun 1 · Fondasi</div><h3>Konsolidasi</h3><ul><li>Baseline seluruh dusun.</li><li>Tim dan tata kelola program.</li><li>SOP pompanisasi.</li><li>Karang taruna aktif.</li><li>Portal pelayanan tahap awal.</li><li>Database pendidikan aman.</li></ul></div>
+  <div class="phase"><div class="period">Tahun 2 · Implementasi</div><h3>Pembangunan</h3><ul><li>Prioritas jalan tani/irigasi.</li><li>Uji coba pengeringan/kemitraan.</li><li>Pembinaan olahraga.</li><li>Pendampingan beasiswa.</li><li>Pelayanan digital operasional.</li></ul></div>
+  <div class="phase"><div class="period">Tahun 3–4 · Ekspansi</div><h3>Produktivitas</h3><ul><li>Perluasan manfaat pertanian.</li><li>Pengembangan UMKM dan pasar.</li><li>Pembinaan atlet berjenjang.</li><li>Penguatan pendampingan siswa.</li><li>Perbaikan mutu layanan.</li></ul></div>
+  <div class="phase"><div class="period">Tahun 5–6 · Penguatan</div><h3>Kemandirian</h3><ul><li>Kelompok tani makin mandiri.</li><li>Pemeliharaan aset terencana.</li><li>Pemerataan antarwilayah.</li><li>Penguatan organisasi pemuda.</li><li>Evaluasi dampak program.</li></ul></div>
+  <div class="phase"><div class="period">Tahun 7 · Optimalisasi</div><h3>Peningkatan mutu</h3><ul><li>Perbaikan program yang tertinggal.</li><li>Standarisasi SOP.</li><li>Penguatan kapasitas pelaksana.</li><li>Audit manfaat dan aset.</li></ul></div>
+  <div class="phase"><div class="period">Tahun 8 · Konsolidasi</div><h3>Keberlanjutan</h3><ul><li>Evaluasi akhir periode.</li><li>Pemeliharaan dan serah kelola.</li><li>Dokumentasi praktik baik.</li><li>Rekomendasi periode berikutnya.</li></ul></div>
+  <div class="phase"><div class="period">Lintas tahun</div><h3>Program berkelanjutan</h3><ul><li>Pelayanan administrasi.</li><li>Pemantauan pendidikan.</li><li>Perawatan infrastruktur.</li><li>Transparansi anggaran.</li></ul></div>
+  <div class="phase"><div class="period">Lintas tahun</div><h3>Evaluasi rutin</h3><ul><li>Rapat bulanan.</li><li>Rapor triwulan.</li><li>Evaluasi semester.</li><li>Laporan tahunan.</li></ul></div>
+ </div>
+</section>
+<section class="section" id="tahun1">
+ <div class="section-head"><div><div class="kicker">06 / Rencana kerja rinci</div><h2>Kalender 12 bulan tahun pertama</h2><p class="lead">Bulan 1 dimulai setelah pelantikan. Kegiatan dan penganggaran harus mengikuti tahapan perencanaan resmi desa.</p></div></div>
+ <div class="months">
+  <div class="month"><b>Bulan 1 · Konsolidasi</b><p>Rapat perangkat, BPD dan Kadus; pembagian peran; jadwal kerja; kanal aspirasi.</p></div>
+  <div class="month"><b>Bulan 2 · Pendataan</b><p>Survei dusun, pertanian, infrastruktur, siswa, pemuda, UMKM dan layanan.</p></div>
+  <div class="month"><b>Bulan 3 · Prioritas</b><p>Verifikasi usulan, skoring kebutuhan, musyawarah dan daftar prioritas.</p></div>
+  <div class="month"><b>Bulan 4 · Pertanian</b><p>Inventaris pompa, kondisi, operator, biaya, tarif dan rancangan SOP.</p></div>
+  <div class="month"><b>Bulan 5 · Kepemudaan</b><p>Aktivasi karang taruna, struktur per dusun, program dan kalender olahraga.</p></div>
+  <div class="month"><b>Bulan 6 · Digitalisasi</b><p>Portal surat tahap pertama, nomor tiket, notifikasi dan SOP pelayanan.</p></div>
+  <div class="month"><b>Bulan 7 · Pendidikan</b><p>Database siswa terbatas, identifikasi kebutuhan, prestasi dan minat.</p></div>
+  <div class="month"><b>Bulan 8 · Infrastruktur</b><p>Survei teknis jalan/irigasi, volume, desain, RAB dan kesiapan lahan.</p></div>
+  <div class="month"><b>Bulan 9 · Jagung</b><p>Survei volume panen, kadar air, biaya pengeringan, mitra dan pasar.</p></div>
+  <div class="month"><b>Bulan 10 · Olahraga/UMKM</b><p>Latihan rutin, kompetisi, pendampingan usaha dan persiapan pasar rakyat.</p></div>
+  <div class="month"><b>Bulan 11 · Mobil siaga</b><p>Analisis kebutuhan, opsi kendaraan, biaya total, pengemudi dan SOP.</p></div>
+  <div class="month"><b>Bulan 12 · Evaluasi</b><p>Verifikasi capaian, realisasi anggaran, kendala dan rencana tahun kedua.</p></div>
+ </div>
+ <div class="rule"></div>
+ <h3>Agenda rutin yang tidak boleh terputus</h3>
+ <div class="tablewrap"><table><thead><tr><th>Kegiatan</th><th>Frekuensi</th><th>Bukti minimal</th></tr></thead><tbody>
+ <tr><td>Rapat koordinasi pemerintah desa</td><td>Bulanan</td><td>Undangan, daftar hadir, notulen, tindak lanjut</td></tr>
+ <tr><td>Pemeriksaan administrasi dan keuangan</td><td>Bulanan sesuai siklus penatausahaan</td><td>Dokumen transaksi dan laporan sesuai ketentuan</td></tr>
+ <tr><td>Pemantauan pompanisasi</td><td>Bulanan / sesuai musim tanam</td><td>Log penggunaan, perawatan, buku kas</td></tr>
+ <tr><td>Pemantauan infrastruktur</td><td>Bulanan saat pekerjaan berjalan</td><td>Foto, volume, progres dan catatan mutu</td></tr>
+ <tr><td>Kegiatan karang taruna</td><td>Minimal satu kegiatan bulanan sebagai target</td><td>Jadwal, peserta, dokumentasi, evaluasi</td></tr>
+ <tr><td>Evaluasi layanan digital</td><td>Bulanan</td><td>Jumlah tiket, status, waktu penyelesaian</td></tr>
+ <tr><td>Publikasi informasi program</td><td>Bulanan</td><td>Ringkasan capaian dan penggunaan anggaran yang layak publik</td></tr>
+ </tbody></table></div>
+</section>
+<section class="section" id="kuartal">
+ <div class="section-head"><div><div class="kicker">07 / Kontrol berkala</div><h2>Target per kuartal dan semester</h2></div></div>
+ <div class="quarter">
+  <div class="qcard"><div class="qhead"><strong>Q1 · Bulan 1–3</strong><span class="badge">Pemetaan</span></div><ul><li>Baseline dusun dan data sektoral tervalidasi.</li><li>Tim pelaksana dan PIC ditetapkan.</li><li>Daftar prioritas dan masalah disepakati.</li><li>Indikator serta kebutuhan biaya awal disusun.</li></ul><b class="small">Output: dokumen baseline dan daftar prioritas.</b></div>
+  <div class="qcard"><div class="qhead"><strong>Q2 · Bulan 4–6</strong><span class="badge blue">Sistem</span></div><ul><li>SOP dan pengelola pompanisasi berjalan.</li><li>Karang taruna terbentuk dan memiliki agenda.</li><li>Portal layanan tahap awal diuji.</li><li>Dokumen teknis infrastruktur disiapkan.</li></ul><b class="small">Output: kelembagaan dan layanan mulai berfungsi.</b></div>
+  <div class="qcard"><div class="qhead"><strong>Q3 · Bulan 7–9</strong><span class="badge blue">Pengembangan</span></div><ul><li>Database pendidikan dan skema pendampingan tersedia.</li><li>Pembinaan atlet mulai rutin.</li><li>Studi kelayakan pengeringan jagung selesai.</li><li>Program infrastruktur siap sesuai anggaran.</li></ul><b class="small">Output: studi, kesiapan teknis dan program berjalan.</b></div>
+  <div class="qcard"><div class="qhead"><strong>Q4 · Bulan 10–12</strong><span class="badge gold">Evaluasi</span></div><ul><li>Kegiatan olahraga dan UMKM berjalan.</li><li>Keputusan investasi pengeringan didasarkan studi.</li><li>Kajian mobil siaga selesai.</li><li>Laporan capaian dan rencana tahun berikutnya disusun.</li></ul><b class="small">Output: laporan tahunan dan rencana tindak lanjut.</b></div>
+ </div>
+ <div class="card" style="margin-top:13px"><h3>Evaluasi semester</h3><div class="tablewrap"><table><thead><tr><th>Bidang</th><th>Semester 1</th><th>Semester 2</th></tr></thead><tbody>
+ <tr><td>Pertanian</td><td>Inventaris pompa, kelompok tani, SOP dan pembukuan.</td><td>Evaluasi layanan, kas, perawatan dan rencana pengembangan.</td></tr>
+ <tr><td>Pembangunan</td><td>Peta kebutuhan, skor, survei dan dokumen teknis.</td><td>Realisasi pekerjaan sesuai APBDes dan kesiapan teknis.</td></tr>
+ <tr><td>Pemuda</td><td>Organisasi, pelatih/relawan dan kalender kegiatan.</td><td>Evaluasi atlet, kompetisi, UMKM dan pasar rakyat.</td></tr>
+ <tr><td>Pendidikan</td><td>Data dan identifikasi kebutuhan siswa.</td><td>Pendampingan dan evaluasi semester.</td></tr>
+ <tr><td>Digital</td><td>Portal tahap awal dan SOP.</td><td>Statistik penggunaan, kualitas layanan dan perbaikan.</td></tr>
+ <tr><td>Mobil siaga</td><td>Kajian kebutuhan dan biaya.</td><td>Keputusan pengadaan hanya bila layak dan anggaran tersedia.</td></tr>
+ </tbody></table></div></div>
+</section>
+<section class="section" id="monitoring">
+ <div class="section-head"><div><div class="kicker">08 / Pengendalian kinerja</div><h2>Sistem monitoring dan evaluasi</h2><p class="lead">Setiap program memiliki target, penanggung jawab, bukti, status, dan tindak lanjut.</p></div></div>
+ <div class="grid">
+  <div class="card span-6"><h3>Ritme monitoring</h3><div class="tablewrap"><table><thead><tr><th>Periode</th><th>Fokus</th><th>Produk</th></tr></thead><tbody>
+   <tr><td>Bulanan</td><td>Kegiatan, kendala, pengeluaran</td><td>Laporan bulanan</td></tr>
+   <tr><td>Triwulan</td><td>Target dan capaian</td><td>Rapor program</td></tr>
+   <tr><td>Semester</td><td>Manfaat dan perubahan</td><td>Evaluasi semester</td></tr>
+   <tr><td>Tahunan</td><td>Realisasi dan keberlanjutan</td><td>Laporan kinerja</td></tr>
+  </tbody></table></div></div>
+  <div class="card span-6"><h3>Status program</h3>
+   <p><span class="badge">Hijau · Sesuai</span> Jadwal dan target sesuai rencana.</p>
+   <p><span class="badge gold">Kuning · Waspada</span> Ada risiko atau keterlambatan ringan.</p>
+   <p><span class="badge" style="background:#f9e9e7;color:#a33e35">Merah · Bermasalah</span> Terhambat, perlu keputusan dan rencana pemulihan.</p>
+   <p><span class="badge blue">Biru · Selesai</span> Output telah diverifikasi dengan bukti.</p>
+   <p><span class="badge" style="background:#edf0ee;color:#58645d">Abu-abu · Belum mulai</span> Belum masuk jadwal pelaksanaan.</p>
+  </div>
+  <div class="card span-12"><h3>Template register monitoring</h3><div class="tablewrap"><table><thead><tr><th>Kode</th><th>Program/kegiatan</th><th>Lokasi</th><th>PIC</th><th>Target</th><th>Anggaran</th><th>Progres fisik</th><th>Realisasi biaya</th><th>Status</th><th>Bukti/tindak lanjut</th></tr></thead><tbody>
+   <tr><td>PRT-01</td><td>Pengelolaan pompanisasi</td><td>Diisi per lokasi</td><td>Diisi</td><td>Inventaris, SOP, log</td><td>Diisi APBDes/sumber sah</td><td>Diisi</td><td>Diisi</td><td>Belum dinilai</td><td>Foto, buku kas, log</td></tr>
+   <tr><td>INF-01</td><td>Perbaikan jalan/irigasi</td><td>Diisi per dusun</td><td>Diisi</td><td>Volume sesuai dokumen</td><td>Diisi</td><td>Diisi</td><td>Diisi</td><td>Belum dinilai</td><td>RAB, foto, pemeriksaan</td></tr>
+   <tr><td>PEM-01</td><td>Aktivasi karang taruna</td><td>Desa/dusun</td><td>Diisi</td><td>Pengurus dan agenda aktif</td><td>Diisi</td><td>Diisi</td><td>Diisi</td><td>Belum dinilai</td><td>SK/berita acara, kegiatan</td></tr>
+   <tr><td>EDU-01</td><td>Pendampingan pendidikan</td><td>Desa</td><td>Diisi</td><td>Siswa sasaran terlayani</td><td>Diisi</td><td>Diisi</td><td>Diisi</td><td>Belum dinilai</td><td>Data akses terbatas</td></tr>
+   <tr><td>DIG-01</td><td>Portal pelayanan surat</td><td>Balai desa/online</td><td>Diisi</td><td>Tiket dan status aktif</td><td>Diisi</td><td>Diisi</td><td>Diisi</td><td>Belum dinilai</td><td>Log sistem, statistik</td></tr>
+   <tr><td>MOB-01</td><td>Kajian mobil siaga</td><td>Desa</td><td>Diisi</td><td>Studi dan biaya total</td><td>Diisi</td><td>Diisi</td><td>Diisi</td><td>Belum dinilai</td><td>Dokumen kajian</td></tr>
+  </tbody></table></div><p class="note">Realisasi fisik dan keuangan dicatat terpisah. Bukti sensitif seperti data siswa tidak ditampilkan di dashboard publik.</p></div>
+ </div>
+</section>
+<section class="section" id="anggaran">
+ <div class="section-head"><div><div class="kicker">09 / Disiplin anggaran</div><h2>Strategi pendanaan dan pengendalian biaya</h2></div></div>
+ <div class="grid">
+  <div class="card span-6"><h3>Urutan penganggaran</h3><ol class="clean"><li>Penuhi belanja wajib dan kewajiban pemerintahan desa.</li><li>Pastikan pemeliharaan aset/fasilitas yang ada.</li><li>Prioritaskan kegiatan berdampak luas dan mendesak.</li><li>Alokasikan pemberdayaan dengan output terukur.</li><li>Lakukan investasi baru setelah studi kelayakan.</li></ol></div>
+  <div class="card span-6"><h3>Sumber yang perlu diverifikasi</h3><ul class="clean"><li>PADes dan hasil pengelolaan aset sesuai aturan.</li><li>Dana Desa dan Alokasi Dana Desa sesuai peruntukan.</li><li>Bantuan keuangan kabupaten/provinsi/pusat.</li><li>Program sektoral pertanian dan pendidikan.</li><li>Kemitraan, CSR, sponsor dan swadaya yang sah.</li></ul></div>
+  <div class="card span-12"><h3>Catatan khusus tanah bengkok dan mobil siaga</h3><p>Pastikan status tanah, mekanisme lelang/sewa, pencatatan pendapatan, dan penganggarannya benar. Hasil lelang tidak boleh langsung dibelanjakan di luar mekanisme keuangan desa. Pengadaan kendaraan harus masuk dokumen perencanaan dan APBDes, memenuhi aturan pengadaan/aset, serta disertai anggaran BBM, servis, pajak, pengemudi dan SOP.</p></div>
+ </div>
+</section>
+<section class="section" id="aksi">
+ <div class="section-head"><div><div class="kicker">10 / Mulai pelaksanaan</div><h2>Checklist 90 hari pertama</h2><p class="lead">Daftar kerja awal yang dapat dicentang saat persiapan dan pelaksanaan.</p></div></div>
+ <div class="card checklist">
+  <h3>Sebelum pelantikan / persiapan</h3>
+  <label><input type="checkbox"> Susun visi-misi menjadi program terukur.</label>
+  <label><input type="checkbox"> Kumpulkan data publik dan dokumen perencanaan desa yang tersedia secara sah.</label>
+  <label><input type="checkbox"> Temui kelompok tani, pemuda, sekolah, UMKM dan tokoh masyarakat.</label>
+  <label><input type="checkbox"> Siapkan daftar data yang perlu divalidasi per dusun.</label>
+  <label><input type="checkbox"> Susun rancangan indikator dan format monitoring.</label>
+  <div class="rule"></div><h3>Hari 1–30</h3>
+  <label><input type="checkbox"> Koordinasi perangkat desa, BPD dan kepala dusun.</label>
+  <label><input type="checkbox"> Tetapkan alur koordinasi, jadwal rapat dan penanggung jawab.</label>
+  <label><input type="checkbox"> Buka kanal aspirasi dan pengaduan warga.</label>
+  <div class="rule"></div><h3>Hari 31–60</h3>
+  <label><input type="checkbox"> Lakukan pendataan pertanian, infrastruktur, pendidikan, pemuda dan UMKM.</label>
+  <label><input type="checkbox"> Verifikasi kondisi pompa, irigasi dan jalan usaha tani.</label>
+  <label><input type="checkbox"> Inventarisasi kebutuhan layanan dan kesiapan digital.</label>
+  <div class="rule"></div><h3>Hari 61–90</h3>
+  <label><input type="checkbox"> Musyawarahkan dan skor usulan pembangunan.</label>
+  <label><input type="checkbox"> Tetapkan daftar prioritas dan kegiatan yang siap dianggarkan.</label>
+  <label><input type="checkbox"> Terbitkan ringkasan baseline dan rencana tindak lanjut untuk warga.</label>
+  <div class="tools" style="margin-top:15px"><button class="btn" onclick="window.print()">Cetak checklist</button><button class="btn secondary" onclick="document.querySelectorAll('.checklist input').forEach(x=>x.checked=false)">Reset centang</button></div>
+ </div>
+</section>
+<section class="section" id="catatan">
+ <div class="section-head"><div><div class="kicker">11 / Catatan kebijakan</div><h2>Dokumen yang harus diselaraskan</h2></div></div>
+ <div class="callout"><b>Penting:</b> HTML ini merupakan rancangan konseptual dan alat kerja awal, bukan dokumen APBDes atau RPJM Desa yang telah disahkan. Program final harus disesuaikan dengan kewenangan desa, hasil musyawarah, RPJM Desa, RKP Desa, APBDes, ketentuan penggunaan sumber dana, dan regulasi terbaru Kabupaten Grobogan.</div>
+ <details><summary>Perencanaan dan masa jabatan</summary><p>UU Nomor 3 Tahun 2024 mengubah ketentuan masa jabatan kepala desa menjadi delapan tahun. Periode kalender 2027–2034 dalam judul hanyalah contoh. Tanggal dan tahapan perencanaan harus mengikuti tanggal pelantikan, ketentuan transisi, serta arahan pemerintah kabupaten.</p></details>
+ <details><summary>Keuangan dan aset desa</summary><p>Gunakan prinsip tertib, transparan, akuntabel, partisipatif serta disiplin anggaran. Pendapatan dari pengelolaan aset desa harus dicatat dan dibelanjakan melalui mekanisme keuangan desa yang berlaku. Pastikan status aset pompa dan kendaraan jelas.</p></details>
+ <details><summary>Perlindungan data pendidikan</summary><p>Nilai rapor, identitas anak dan kondisi keluarga bukan materi dashboard publik. Batasi akses, tetapkan tujuan pengumpulan, persetujuan yang diperlukan, keamanan penyimpanan, retensi dan prosedur koreksi data.</p></details>
+ <details><summary>Pengadaan dan pembangunan fisik</summary><p>Setiap pekerjaan perlu dasar kewenangan, dokumen teknis, RAB, standar mutu, proses pengadaan yang berlaku, pengawasan, dokumentasi dan berita acara pemeriksaan.</p></details>
+ <div class="card" style="margin-top:14px"><h3>Referensi awal untuk verifikasi</h3><ul class="clean">
+  <li>UU Nomor 6 Tahun 2014 tentang Desa sebagaimana diubah, terakhir dengan UU Nomor 3 Tahun 2024.</li>
+  <li>Permendagri Nomor 20 Tahun 2018 tentang Pengelolaan Keuangan Desa.</li>
+  <li>Peraturan teknis penyusunan RPJM Desa dan RKP Desa yang berlaku.</li>
+  <li>Peraturan Bupati Grobogan tentang perencanaan dan pengelolaan keuangan desa, setelah diperiksa status dan perubahan terbarunya.</li>
+ </ul><p class="note">Sebelum digunakan sebagai dokumen resmi, verifikasi seluruh regulasi pada JDIH Kabupaten Grobogan, JDIH Kemendagri, dan konsultasikan dengan Dispermades serta kecamatan.</p></div>
+</section>
+</main>
+<footer><div class="wrap"><b>MASTER PLAN DESA PENGANTEN</b><br>Kecamatan Klambu · Kabupaten Grobogan · Jawa Tengah<br><span style="color:#a9c5b4">Dokumen konsep untuk pembahasan, pemutakhiran data, musyawarah dan penyelarasan dengan dokumen resmi desa.</span></div></footer>
+</body></html>
