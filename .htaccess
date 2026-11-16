@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Jika request sudah mengarah ke folder perencanaan, jangan tulis ulang
+    RewriteCond %{REQUEST_URI} ^/perencanaan/ [NC]
+    RewriteRule ^ - [L]
+
+    # Arahkan semua request root ke folder project perencanaan
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ perencanaan/$1 [L,QSA]
+
+    # Root langsung ke perencanaan
+    RewriteRule ^$ perencanaan/index.php [L,QSA]
+</IfModule>
+
+# Opsional: cegah listing direktori
+Options -Indexes
