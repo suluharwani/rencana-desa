@@ -151,6 +151,7 @@ ul.clean{margin:6px 0 0;padding-left:18px}.clean li{margin:4px 0;font-size:13px}
     <div class="muted">Ringkasan progres pelaksanaan rencana desa, disajikan agar mudah dibaca publik.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn sec" href="index.php">← Kembali ke Halaman Publik</a>
+      <a class="btn sec" href="infografis.php">Infografis</a>
       <a class="btn sec" href="index.php#kritik-saran">Kritik & Saran</a>
       <button class="btn" onclick="window.print()">Cetak Laporan</button>
     </div>

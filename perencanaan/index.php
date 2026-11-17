@@ -168,13 +168,14 @@ textarea{min-height:110px;resize:vertical}
 </div></header>
 
 <nav><div class="wrap navinner">
-  <a href="laporan.php" style="background:#176b45;color:#fff">Laporan Progress</a><a href="#statistik">Statistik</a><a href="#arah">Arah</a><a href="#baseline">Baseline</a><a href="#pilar">Pilar</a><a href="#roadmap">Roadmap</a><a href="#tahun1">Tahun 1</a><a href="#kuartal">Kuartal</a><a href="#semester">Semester</a><a href="#monitoring">Monitoring</a><a href="#anggaran">Anggaran</a><a href="#checklist">Checklist</a><a href="#catatan">Catatan</a><a href="#kritik-saran">Kritik & Saran</a>
+  <a href="laporan.php" style="background:#176b45;color:#fff">Laporan Progress</a><a href="infografis.php" style="background:#286b9b;color:#fff">Infografis</a><a href="#statistik">Statistik</a><a href="#arah">Arah</a><a href="#baseline">Baseline</a><a href="#pilar">Pilar</a><a href="#roadmap">Roadmap</a><a href="#tahun1">Tahun 1</a><a href="#kuartal">Kuartal</a><a href="#semester">Semester</a><a href="#monitoring">Monitoring</a><a href="#anggaran">Anggaran</a><a href="#checklist">Checklist</a><a href="#catatan">Catatan</a><a href="#kritik-saran">Kritik & Saran</a>
 </div></nav>
 
 <main class="wrap">
   <div class="topbar">
     <div class="muted">Halaman publik: menampilkan rencana dan progres perencanaan desa (tanpa login). Data dapat diperbarui oleh admin.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn sec" href="infografis.php">Infografis</a>
       <a class="btn sec" href="laporan.php">Laporan Progress</a>
       <a class="btn" href="login.php">Login Admin</a>
     </div>
