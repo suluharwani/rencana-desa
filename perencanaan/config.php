@@ -189,7 +189,7 @@ function seed_defaults(PDO $pdo): void {
         'judul' => 'MASTER PLAN DESA PENGANTEN',
         'subjudul' => 'Roadmap pembangunan, pemberdayaan masyarakat, pelayanan publik, dan sistem monitoring.',
         'lokasi' => 'Kecamatan Klambu, Kabupaten Grobogan',
-        'periode' => '2027–2034 (contoh, sesuaikan masa jabatan & dokumen resmi)',
+        'periode' => 'Program prioritas 5 tahun (contoh; selaraskan dengan RPJM Desa)',
         'versi' => 'Konsep 1.0',
         'visi' => 'Mewujudkan Desa Penganten yang mandiri, produktif, adil, terbuka, dan berdaya melalui penguatan ekonomi pertanian, pemerataan pembangunan, pemberdayaan pemuda, peningkatan pendidikan, serta pelayanan publik yang mudah dan transparan.',
         'slogan' => 'Pertanian kuat, pemuda hebat, pendidikan maju, pemerintahan melayani.',
@@ -198,6 +198,9 @@ function seed_defaults(PDO $pdo): void {
     ];
     $stmt = $pdo->prepare('INSERT IGNORE INTO settings(`key`,`value`) VALUES (?,?)');
     foreach ($defaults as $k => $v) $stmt->execute([$k, $v]);
+    // Upgrade only the untouched sample period; keep any period edited by an admin.
+    $pdo->prepare("UPDATE settings SET `value`=? WHERE `key`='periode' AND `value` IN (?,?)")
+        ->execute([$defaults['periode'], '2027–2034 (contoh)', '2027–2034 (contoh, sesuaikan masa jabatan & dokumen resmi)']);
 
     if ((int)$pdo->query('SELECT COUNT(*) FROM baseline')->fetchColumn() === 0) {
         $pdo->exec("INSERT INTO baseline(label,nilai,keterangan,urutan) VALUES
@@ -241,19 +244,42 @@ function seed_defaults(PDO $pdo): void {
         foreach ($rows as $r) $stmt->execute($r);
     }
 
+    $fiveYearRoadmap = [
+        ['Tahun 1 · Data & fondasi', 'Kenali kebutuhan dan siapkan tata kelola', "Verifikasi data dan kebutuhan tiap dusun bersama warga.\nTetapkan tim, penanggung jawab dan cara melaporkan progres.\nSusun prioritas enam bidang melalui musyawarah.\nInventaris pompa, jalan tani, layanan, pemuda dan kebutuhan pendidikan.", 1],
+        ['Tahun 2 · Mulai bergerak', 'Jalankan program awal yang siap', "Terapkan SOP dan pembukuan terbuka untuk layanan pertanian.\nAktifkan kegiatan pemuda, olahraga dan pendampingan pendidikan.\nUji coba layanan digital desa dan jalur layanan langsung.\nSiapkan desain serta biaya untuk pekerjaan yang sudah disepakati.", 2],
+        ['Tahun 3 · Kerjakan prioritas', 'Wujudkan pekerjaan yang disepakati', "Laksanakan perbaikan jalan atau irigasi sesuai prioritas, dokumen teknis dan anggaran sah.\nPerluas layanan pertanian, pendidikan, pemuda dan digital yang sudah dievaluasi.\nHubungkan kegiatan UMKM dengan pasar dan mitra lokal.\nNilai hasil setiap kegiatan bersama warga.", 3],
+        ['Tahun 4 · Perluas manfaat', 'Perkuat program yang terbukti bermanfaat', "Perluas program yang hasilnya baik ke dusun atau kelompok lain.\nRawat sarana dan aset agar tetap berfungsi.\nKembangkan pasar rakyat, usaha warga dan pembinaan pemuda.\nPutuskan kebutuhan mobil siaga berdasarkan kajian dan kemampuan anggaran.", 4],
+        ['Tahun 5 · Evaluasi & lanjutkan', 'Laporkan hasil dan jaga keberlanjutan', "Bandingkan capaian lima tahun dengan kondisi awal dan target.\nLaporkan hasil kegiatan serta penggunaan anggaran kepada masyarakat.\nTetapkan pengelola dan biaya pemeliharaan sarana yang sudah dibangun.\nCatat pelajaran dan usulan lanjutan untuk dibahas dalam RPJM Desa.", 5],
+    ];
     if ((int)$pdo->query('SELECT COUNT(*) FROM roadmap')->fetchColumn() === 0) {
         $stmt = $pdo->prepare('INSERT INTO roadmap(periode,judul,poin,urutan) VALUES (?,?,?,?)');
-        $rows = [
-            ['Tahun 1 · Fondasi', 'Konsolidasi', "Baseline seluruh dusun.\nTim dan tata kelola program.\nSOP pompanisasi.\nKarang taruna aktif.\nPortal pelayanan tahap awal.\nDatabase pendidikan aman.", 1],
-            ['Tahun 2 · Implementasi', 'Pembangunan', "Prioritas jalan tani/irigasi.\nUji coba pengeringan/kemitraan.\nPembinaan olahraga.\nPendampingan beasiswa.\nPelayanan digital operasional.", 2],
-            ['Tahun 3–4 · Ekspansi', 'Produktivitas', "Perluasan manfaat pertanian.\nPengembangan UMKM dan pasar.\nPembinaan atlet berjenjang.\nPenguatan pendampingan siswa.\nPerbaikan mutu layanan.", 3],
-            ['Tahun 5–6 · Penguatan', 'Kemandirian', "Kelompok tani makin mandiri.\nPemeliharaan aset terencana.\nPemerataan antarwilayah.\nPenguatan organisasi pemuda.\nEvaluasi dampak program.", 4],
-            ['Tahun 7 · Optimalisasi', 'Peningkatan mutu', "Perbaikan program yang tertinggal.\nStandarisasi SOP.\nPenguatan kapasitas pelaksana.\nAudit manfaat dan aset.", 5],
-            ['Tahun 8 · Konsolidasi', 'Keberlanjutan', "Evaluasi akhir periode.\nPemeliharaan dan serah kelola.\nDokumentasi praktik baik.\nRekomendasi periode berikutnya.", 6],
-            ['Lintas tahun', 'Program berkelanjutan', "Pelayanan administrasi.\nPemantauan pendidikan.\nPerawatan infrastruktur.\nTransparansi anggaran.", 7],
-            ['Lintas tahun', 'Evaluasi rutin', "Rapat bulanan.\nRapor triwulan.\nEvaluasi semester.\nLaporan tahunan.", 8],
-        ];
-        foreach ($rows as $r) $stmt->execute($r);
+        foreach ($fiveYearRoadmap as $row) $stmt->execute($row);
+    }
+
+    // Migrate the original sample roadmap only when none of its seeded content was edited.
+    $legacyRoadmap = [
+        ['Tahun 1 · Fondasi', 'Konsolidasi', "Baseline seluruh dusun.\nTim dan tata kelola program.\nSOP pompanisasi.\nKarang taruna aktif.\nPortal pelayanan tahap awal.\nDatabase pendidikan aman.", 1],
+        ['Tahun 2 · Implementasi', 'Pembangunan', "Prioritas jalan tani/irigasi.\nUji coba pengeringan/kemitraan.\nPembinaan olahraga.\nPendampingan beasiswa.\nPelayanan digital operasional.", 2],
+        ['Tahun 3–4 · Ekspansi', 'Produktivitas', "Perluasan manfaat pertanian.\nPengembangan UMKM dan pasar.\nPembinaan atlet berjenjang.\nPenguatan pendampingan siswa.\nPerbaikan mutu layanan.", 3],
+        ['Tahun 5–6 · Penguatan', 'Kemandirian', "Kelompok tani makin mandiri.\nPemeliharaan aset terencana.\nPemerataan antarwilayah.\nPenguatan organisasi pemuda.\nEvaluasi dampak program.", 4],
+        ['Tahun 7 · Optimalisasi', 'Peningkatan mutu', "Perbaikan program yang tertinggal.\nStandarisasi SOP.\nPenguatan kapasitas pelaksana.\nAudit manfaat dan aset.", 5],
+        ['Tahun 8 · Konsolidasi', 'Keberlanjutan', "Evaluasi akhir periode.\nPemeliharaan dan serah kelola.\nDokumentasi praktik baik.\nRekomendasi periode berikutnya.", 6],
+        ['Lintas tahun', 'Program berkelanjutan', "Pelayanan administrasi.\nPemantauan pendidikan.\nPerawatan infrastruktur.\nTransparansi anggaran.", 7],
+        ['Lintas tahun', 'Evaluasi rutin', "Rapat bulanan.\nRapor triwulan.\nEvaluasi semester.\nLaporan tahunan.", 8],
+    ];
+    $currentRoadmap = $pdo->query('SELECT periode,judul,poin,urutan FROM roadmap ORDER BY urutan,id')->fetchAll(PDO::FETCH_NUM);
+    $currentRoadmap = array_map(static fn(array $row): array => [(string)$row[0], (string)$row[1], (string)$row[2], (int)$row[3]], $currentRoadmap);
+    if ($currentRoadmap === $legacyRoadmap) {
+        $pdo->beginTransaction();
+        try {
+            $pdo->exec('DELETE FROM roadmap');
+            $stmt = $pdo->prepare('INSERT INTO roadmap(periode,judul,poin,urutan) VALUES (?,?,?,?)');
+            foreach ($fiveYearRoadmap as $row) $stmt->execute($row);
+            $pdo->commit();
+        } catch (Throwable $e) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+            throw $e;
+        }
     }
 
     if ((int)$pdo->query('SELECT COUNT(*) FROM year1_months')->fetchColumn() === 0) {
@@ -366,15 +392,18 @@ function seed_defaults(PDO $pdo): void {
         foreach ($rows as $r) $stmt->execute($r);
     }
 
+    $pdo->prepare('UPDATE notes SET isi=CONCAT(isi, ?) WHERE judul=? AND isi NOT LIKE ?')
+        ->execute([' Roadmap prioritas pada halaman utama mencakup lima tahun; jadwal dan targetnya perlu diselaraskan dengan RPJM Desa resmi yang berlaku.', 'Perencanaan dan masa jabatan', '%Roadmap prioritas pada halaman utama%']);
+
     if ((int)$pdo->query('SELECT COUNT(*) FROM notes')->fetchColumn() === 0) {
         $stmt = $pdo->prepare('INSERT INTO notes(judul,isi,urutan) VALUES (?,?,?)');
         $rows = [
             ['Penting: status dokumen', 'HTML/rancangan ini merupakan konsep dan alat kerja awal, bukan dokumen APBDes atau RPJM Desa yang telah disahkan. Program final harus disesuaikan dengan kewenangan desa, hasil musyawarah, RPJM Desa, RKP Desa, APBDes, ketentuan penggunaan sumber dana, dan regulasi terbaru Kabupaten Grobogan.', 1],
-            ['Perencanaan dan masa jabatan', 'UU Nomor 3 Tahun 2024 mengubah ketentuan masa jabatan kepala desa menjadi delapan tahun. Periode kalender 2027–2034 adalah contoh. Tanggal dan tahapan perencanaan harus mengikuti tanggal pelantikan, ketentuan transisi, serta arahan pemerintah kabupaten.', 2],
+            ['Perencanaan dan masa jabatan', 'UU Nomor 3 Tahun 2024 mengatur masa jabatan kepala desa selama delapan tahun. Roadmap prioritas pada halaman utama mencakup lima tahun; jadwal dan targetnya perlu diselaraskan dengan RPJM Desa resmi yang berlaku, tanggal pelantikan, ketentuan transisi, serta arahan pemerintah kabupaten.', 2],
             ['Keuangan dan aset desa', 'Gunakan prinsip tertib, transparan, akuntabel, partisipatif serta disiplin anggaran. Pendapatan dari pengelolaan aset desa harus dicatat dan dibelanjakan melalui mekanisme keuangan desa yang berlaku. Pastikan status aset pompa dan kendaraan jelas.', 3],
             ['Perlindungan data pendidikan', 'Nilai rapor, identitas anak dan kondisi keluarga bukan materi dashboard publik. Batasi akses, tetapkan tujuan pengumpulan, persetujuan yang diperlukan, keamanan penyimpanan, retensi dan prosedur koreksi data.', 4],
             ['Pengadaan dan pembangunan fisik', 'Setiap pekerjaan perlu dasar kewenangan, dokumen teknis, RAB, standar mutu, proses pengadaan yang berlaku, pengawasan, dokumentasi dan berita acara pemeriksaan.', 5],
-            ['Referensi awal untuk verifikasi', "UU Nomor 6 Tahun 2014 tentang Desa sebagaimana diubah, terakhir dengan UU Nomor 3 Tahun 2024.\nPermendagri Nomor 20 Tahun 2018 tentang Pengelolaan Keuangan Desa.\nPeraturan teknis penyusunan RPJM Desa dan RKP Desa yang berlaku.\nPeraturan Bupati Grobogan tentang perencanaan dan pengelolaan keuangan desa, setelah diperiksa status dan perubahan terbarunya.", 6],
+            ['Referensi awal untuk verifikasi', implode("\n", ['UU Nomor 6 Tahun 2014 tentang Desa sebagaimana diubah, terakhir dengan UU Nomor 3 Tahun 2024.', 'Permendagri Nomor 20 Tahun 2018 tentang Pengelolaan Keuangan Desa.', 'Peraturan teknis penyusunan RPJM Desa dan RKP Desa yang berlaku.', 'Peraturan Bupati Grobogan tentang perencanaan dan pengelolaan keuangan desa, setelah diperiksa status dan perubahan terbarunya.']), 6],
         ];
         foreach ($rows as $r) $stmt->execute($r);
     }
