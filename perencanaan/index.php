@@ -106,6 +106,7 @@ $pillarVisuals = [
     '5' => ['src' => 'assets/program/digital.webp', 'alt' => 'Ilustrasi warga menggunakan layanan digital desa'],
     '6' => ['src' => 'assets/program/mobil-siaga.webp', 'alt' => 'Ilustrasi layanan mobil siaga kesehatan'],
 ];
+$candidatePhoto = 'assets/program/dukungan-mas-eri.jpg';
 
 function status_class(string $s): string {
     if (str_starts_with($s, 'Hijau')) return 'st-green';
@@ -177,6 +178,7 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:900px){.c3,.c4{grid-column:span 6}.c8,.c6{grid-column:span 12}}
 @media(max-width:560px){.c3,.c4,.c6,.c8,.c12{grid-column:span 12}.wrap{padding:0 14px}.hero{padding:34px 0 26px}}
 .hero{position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:320px;height:320px;border:1px solid #ffffff22;border-radius:50%;right:-60px;top:-150px;box-shadow:0 0 0 34px #ffffff0d,0 0 0 70px #ffffff08;pointer-events:none}.hero .wrap{position:relative;z-index:1}
+.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 176px;align-items:center;gap:28px}.candidate-card{justify-self:end;width:156px;margin:0;padding:7px;border:1px solid #ffffff55;border-radius:18px;background:#ffffff18;box-shadow:0 14px 32px #08251733}.candidate-card img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;border-radius:12px;background:#fff}.candidate-card figcaption{padding:7px 4px 3px;text-align:center;font-size:11px;line-height:1.35;color:#eef7f0}.candidate-card figcaption b{display:block;color:#fff;font-size:12px}.candidate-caption{font-size:11px;color:#eef7f0;opacity:.9}
 .navinner{scrollbar-width:thin}.navinner a{flex:none}.navinner a:first-child,.navinner a:nth-child(2){background:var(--mint);color:var(--green)}.navinner a:hover,.navinner a:focus-visible{outline:2px solid #8fbba0;outline-offset:1px}
 .intro{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);gap:14px;margin:18px 0 28px}.intro-main{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.intro-main h2{font-size:22px}.intro-side{background:#e7f2e9;border-radius:16px;padding:18px;color:#244b35}.intro-side b{display:block;margin-bottom:6px}.intro-side p{margin:0;font-size:13px}
 .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:12px}.section-head .lead{margin:0;max-width:560px}
@@ -210,12 +212,13 @@ textarea{min-height:110px;resize:vertical}
   input[type=text],input[type=email],input[type=search],select,textarea{font-size:16px;padding:11px 12px}.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
   .tablewrap{max-width:100%}.tablewrap table{min-width:620px}.phase,.month{padding:12px}
 }
+@media(max-width:640px){.hero-layout{grid-template-columns:minmax(0,1fr) 112px;gap:14px;align-items:start}.candidate-card{width:108px;padding:5px;border-radius:14px}.candidate-card img{border-radius:10px}.candidate-card figcaption{font-size:10px;padding:6px 2px 2px}.candidate-card figcaption b{font-size:11px}.hero-layout .meta{gap:5px}.hero-layout .chip{padding:4px 7px;font-size:10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 @media print{nav,.topbar,.filters,.btn,form{display:none!important}.hero{padding:20px 0}.section{break-inside:avoid}.card{box-shadow:none}}
 </style>
 </head>
 <body>
-<header class="hero"><div class="wrap">
+<header class="hero"><div class="wrap hero-layout"><div class="hero-copy">
   <div class="eyebrow">Rencana Desa · Ringkasan untuk Warga</div>
   <h1><?php echo h($judul); ?></h1>
   <?php if ($subjudul): ?><p><?php echo h($subjudul); ?></p><?php endif; ?>
@@ -226,7 +229,7 @@ textarea{min-height:110px;resize:vertical}
     <?php if ($versi): ?><span class="chip"><?php echo h($versi); ?></span><?php endif; ?>
     <span class="chip">Bahan rencana · perlu dibahas bersama</span>
   </div>
-</div></header>
+</div><figure class="candidate-card"><img src="<?php echo h($candidatePhoto); ?>" alt="Poster dukungan untuk calon kepala desa Mas Eri" width="864" height="1296" fetchpriority="high"><figcaption><b>Dukungan untuk Mas Eri</b><span class="candidate-caption">Libatkan warga, berpihak untuk warga</span></figcaption></figure></div></header>
 
 <nav><div class="wrap navinner">
   <a href="#ringkasan">Ringkasan</a><a href="#detail-ringkas">Program</a><a href="#detail-tahapan">Tahapan</a><a href="#detail-data">Data desa</a><a href="#detail-masukan">Sampaikan usul</a>
