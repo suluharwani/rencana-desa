@@ -48,7 +48,7 @@ button{margin-top:16px;width:100%;padding:10px;border:0;border-radius:8px;backgr
     <button type="submit">Masuk</button>
   </form>
   <div class="hint">Kredensial default: <b>admin</b> / <b>password</b></div>
-  <div style="margin-top:14px;text-align:center"><a href="public.php" style="color:#176b45;font-weight:700;text-decoration:none">Lihat Progress Publik (tanpa login)</a></div>
+  <div style="margin-top:14px;text-align:center"><a href="index.php" style="color:#176b45;font-weight:700;text-decoration:none">Lihat Progress Publik (tanpa login)</a></div>
 </div>
 </body>
 </html>

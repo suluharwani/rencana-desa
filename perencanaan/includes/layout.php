@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 function page_start(string $title, string $active = ''): void {
     $flash = flash_get();
     $pages = [
@@ -51,7 +51,7 @@ textarea{min-height:70px;resize:vertical}
     <?php endforeach; ?>
   </nav>
   <hr style="border:0;border-top:1px solid #2f624c;margin:12px 0">
-  <a href="public.php" target="_blank" style="display:block;color:#d9e9df;text-decoration:none;padding:8px 10px;border-radius:8px;margin-bottom:8px;font-weight:600;font-size:13px;background:#1a4d38">Lihat Halaman Publik ↗</a>
+  <a href="index.php" target="_blank" style="display:block;color:#d9e9df;text-decoration:none;padding:8px 10px;border-radius:8px;margin-bottom:8px;font-weight:600;font-size:13px;background:#1a4d38">Lihat Halaman Publik â†—</a>
   <div style="font-size:12px;color:#bdd3c5;margin-bottom:8px">Login: <?php echo h($_SESSION['username'] ?? 'admin'); ?></div>
   <a class="btn sec sm" href="logout.php">Logout</a>
 </aside>

@@ -201,11 +201,16 @@ function seed_defaults(PDO $pdo): void {
 
     if ((int)$pdo->query('SELECT COUNT(*) FROM baseline')->fetchColumn() === 0) {
         $pdo->exec("INSERT INTO baseline(label,nilai,keterangan,urutan) VALUES
-            ('Luas wilayah','7,82','km² · data historis publikasi 2023',1),
-            ('Penduduk historis','4.553','jiwa · data administrasi 2022',2),
-            ('Laki-laki','2.319','jiwa · data historis',3),
-            ('Perempuan','2.234','jiwa · data historis',4)");
+            ('Luas wilayah','7,82','km² · data historis publikasi 2023 · verifikasi ulang',1),
+            ('Penduduk historis','4.553','jiwa · data administrasi 2022 · verifikasi ulang',2),
+            ('Laki-laki','2.319','jiwa · data historis · verifikasi ulang',3),
+            ('Perempuan','2.234','jiwa · data historis · verifikasi ulang',4)");
     }
+
+    // Existing installations keep their original values; make their historical status explicit.
+    $pdo->exec("UPDATE baseline SET keterangan=CONCAT(TRIM(TRAILING ' · verifikasi ulang' FROM keterangan), ' · verifikasi ulang')
+        WHERE (label IN ('Luas wilayah','Penduduk historis','Laki-laki','Perempuan'))
+        AND keterangan NOT LIKE '%verifikasi ulang%'");
 
     if ((int)$pdo->query('SELECT COUNT(*) FROM baseline_tasks')->fetchColumn() === 0) {
         $stmt = $pdo->prepare('INSERT INTO baseline_tasks(kelompok,item,urutan) VALUES (?,?,?)');

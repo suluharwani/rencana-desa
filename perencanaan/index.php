@@ -57,6 +57,14 @@ $checkTotal = count($checklist);
 $checkDone = 0;
 foreach ($checklist as $r) { if ((int)$r['selesai'] === 1) $checkDone++; }
 $checkPct = $checkTotal > 0 ? (int)round($checkDone * 100 / $checkTotal) : 0;
+$baselineIsVerified = count(array_filter($baseline, static function (array $row): bool {
+    $description = strtolower((string)($row['keterangan'] ?? ''));
+    return str_contains($description, 'verifikasi') || str_contains($description, 'tervalidasi');
+})) === count($baseline) && count($baseline) > 0;
+$checklistStarted = $checkDone > 0;
+$monitorStarted = count(array_filter($monitoring, static function (array $row): bool {
+    return !str_starts_with((string)($row['status'] ?? ''), 'Belum dinilai');
+})) > 0;
 
 $groupedChecklist = [];
 foreach ($checklist as $r) { $groupedChecklist[$r['tahap']][] = $r; }
@@ -151,11 +159,27 @@ textarea{min-height:110px;resize:vertical}
 .alert{padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:14px}.alert.ok{background:#e7f5ec;color:#1b5e3b;border:1px solid #cfe8d8}.alert.err{background:#fdeceb;color:#8a332d;border:1px solid #f3c9c5}
 @media(max-width:900px){.c3,.c4{grid-column:span 6}.c8,.c6{grid-column:span 12}}
 @media(max-width:560px){.c3,.c4,.c6,.c8,.c12{grid-column:span 12}.wrap{padding:0 14px}.hero{padding:34px 0 26px}}
+.hero{position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:320px;height:320px;border:1px solid #ffffff22;border-radius:50%;right:-60px;top:-150px;box-shadow:0 0 0 34px #ffffff0d,0 0 0 70px #ffffff08;pointer-events:none}.hero .wrap{position:relative;z-index:1}
+.navinner{scrollbar-width:thin}.navinner a{flex:none}.navinner a:first-child,.navinner a:nth-child(2){background:var(--mint);color:var(--green)}.navinner a:hover,.navinner a:focus-visible{outline:2px solid #8fbba0;outline-offset:1px}
+.intro{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);gap:14px;margin:18px 0 28px}.intro-main{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.intro-main h2{font-size:22px}.intro-side{background:#e7f2e9;border-radius:16px;padding:18px;color:#244b35}.intro-side b{display:block;margin-bottom:6px}.intro-side p{margin:0;font-size:13px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:12px}.section-head .lead{margin:0;max-width:560px}
+.metric{position:relative;overflow:hidden}.metric:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:#eaf5ee;right:-28px;top:-35px}.metric .label,.metric .stat,.metric .progress,.metric .muted{position:relative;z-index:1}.metric .stat{font-size:34px}.metric.featured{background:linear-gradient(135deg,#eaf5ee,#fff)}
+.status-explain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}.status-key{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:12px}.status-key b{display:block;margin-bottom:3px}
+.filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}.filters button{appearance:none;border:1px solid var(--line);border-radius:99px;background:#fff;color:#42564a;padding:7px 12px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.filters button[aria-pressed="true"]{background:#176b45;border-color:#176b45;color:#fff}.filters input{max-width:270px;margin-left:auto}.program-card{grid-column:span 4;display:flex;flex-direction:column;gap:10px;transition:transform .18s ease,box-shadow .18s ease}.program-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px #193c2812}.program-top{display:flex;align-items:flex-start;gap:10px}.program-top .ico{width:40px;height:40px;flex-basis:40px;font-size:16px}.program-desc{color:#52645a;font-size:13px}.program-outcome{margin-top:auto;padding-top:10px;border-top:1px solid #e8eee9}.program-outcome b{display:block;color:#176b45;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.status-note{background:#fff7e7;border:1px solid #f0dfb8;color:#72531d;border-radius:12px;padding:12px 14px;font-size:13px}
+.checklist-summary{display:flex;gap:16px;align-items:center}.checklist-ring{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;flex:0 0 84px;background:conic-gradient(var(--green) calc(var(--pct)*1%),#e6ece7 0);position:relative}.checklist-ring:after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}.checklist-ring b{position:relative;z-index:1;color:var(--green);font-size:19px}.feedback-card{background:linear-gradient(145deg,#fff,#f5faf6)}
+.simple-intro{margin:18px 0 20px}.simple-intro .intro-main{padding:22px}.simple-intro .intro-main h2{margin-top:6px}.summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.summary-grid .card{min-height:142px}.quick-links{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.quick-links a{font-size:13px}.detail-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.detail-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}.detail-card summary{cursor:pointer;list-style:none;padding:17px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:800;color:#234b36;background:linear-gradient(120deg,#fff,#f4f9f5)}.detail-card summary::-webkit-details-marker{display:none}.detail-card summary:after{content:"Lihat";padding:6px 10px;border-radius:99px;background:#eaf5ee;color:var(--green);font-size:11px;flex:0 0 auto}.detail-card[open] summary:after{content:"Tutup"}.detail-body{padding:16px}.detail-body .section{margin:0;padding-top:0}.detail-body .section>h2{font-size:20px}.detail-body .lead{margin-bottom:10px}.detail-body .card{margin-bottom:8px}.detail-body .timeline,.detail-body .months{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}.detail-body .tablewrap{margin-top:8px}.detail-body .filters{margin-top:10px}.detail-list .wide{grid-column:1/-1}.detail-card[open] summary{border-bottom:1px solid #e8eee9}.small-note{font-size:12px;color:var(--muted);margin:0}
+.roadmap-visual{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.roadmap-step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;position:relative;overflow:hidden}.roadmap-step:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#176b45,#9fca76)}.roadmap-step .num{font-size:11px;font-weight:800;color:var(--green)}.roadmap-step b{display:block;margin:4px 0}.roadmap-step span{font-size:12px;color:var(--muted)}.program-card{cursor:pointer;border-top:4px solid #71aa65}.program-card:nth-child(3n+2){border-top-color:#e2b44e}.program-card:nth-child(3n){border-top-color:#69a8a0}.program-open{margin-top:auto;color:var(--green);font-size:12px;font-weight:800}.detail-modal{position:fixed;inset:0;z-index:80;background:#10281dcc;display:none;align-items:center;justify-content:center;padding:20px}.detail-modal[aria-hidden="false"]{display:flex}.modal-panel{background:#f7faf7;border-radius:20px;width:min(900px,100%);max-height:min(86vh,900px);overflow:auto;box-shadow:0 25px 80px #07190f66}.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:2}.modal-head h2{margin:0;font-size:20px}.modal-close{border:0;border-radius:50%;width:38px;height:38px;background:#eaf5ee;color:var(--green);font-size:22px;cursor:pointer}.modal-content{padding:20px}.modal-content .section{margin-bottom:20px}.info-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.info-tile{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}.info-tile b{display:block;margin-bottom:5px;color:#234b36}.info-tile span{font-size:12px;color:var(--muted)}
+@media(max-width:700px){.intro{grid-template-columns:1fr}.status-explain{grid-template-columns:repeat(2,minmax(0,1fr))}.program-card{grid-column:span 6}.section-head{align-items:flex-start;flex-direction:column}.filters input{max-width:none;width:100%;margin-left:0}}
+@media(max-width:900px){.roadmap-visual{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.summary-grid{grid-template-columns:1fr}.detail-list{grid-template-columns:1fr}.summary-grid .card{min-height:unset}.info-links{grid-template-columns:1fr}.modal-content{padding:14px}.detail-modal{padding:8px}}
+@media(max-width:560px){.program-card{grid-column:span 12}.checklist-summary{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{nav,.topbar,.filters,.btn,form{display:none!important}.hero{padding:20px 0}.section{break-inside:avoid}.card{box-shadow:none}}
 </style>
 </head>
 <body>
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">Portal Progress Publik · Dokumen Perencanaan</div>
+  <div class="eyebrow">Rencana Desa · Ringkasan untuk Warga</div>
   <h1><?php echo h($judul); ?></h1>
   <?php if ($subjudul): ?><p><?php echo h($subjudul); ?></p><?php endif; ?>
   <?php if ($slogan): ?><p><b><?php echo h($slogan); ?></b></p><?php endif; ?>
@@ -163,17 +187,17 @@ textarea{min-height:110px;resize:vertical}
     <?php if ($lokasi): ?><span class="chip"><?php echo h($lokasi); ?></span><?php endif; ?>
     <?php if ($periode): ?><span class="chip">Periode: <?php echo h($periode); ?></span><?php endif; ?>
     <?php if ($versi): ?><span class="chip"><?php echo h($versi); ?></span><?php endif; ?>
-    <span class="chip">Diperbarui berkala</span>
+    <span class="chip">Bahan rencana · perlu dibahas bersama</span>
   </div>
 </div></header>
 
 <nav><div class="wrap navinner">
-  <a href="laporan.php" style="background:#176b45;color:#fff">Laporan Progress</a><a href="infografis.php" style="background:#286b9b;color:#fff">Infografis</a><a href="#statistik">Statistik</a><a href="#arah">Arah</a><a href="#baseline">Baseline</a><a href="#pilar">Pilar</a><a href="#roadmap">Roadmap</a><a href="#tahun1">Tahun 1</a><a href="#kuartal">Kuartal</a><a href="#semester">Semester</a><a href="#monitoring">Monitoring</a><a href="#anggaran">Anggaran</a><a href="#checklist">Checklist</a><a href="#catatan">Catatan</a><a href="#kritik-saran">Kritik & Saran</a>
+  <a href="#ringkasan">Ringkasan</a><a href="#detail-ringkas">Program</a><a href="#detail-tahapan">Tahapan</a><a href="#detail-data">Data desa</a><a href="#detail-masukan">Sampaikan usul</a>
 </div></nav>
 
 <main class="wrap">
   <div class="topbar">
-    <div class="muted">Halaman publik: menampilkan rencana dan progres perencanaan desa (tanpa login). Data dapat diperbarui oleh admin.</div>
+    <div class="muted">Kenali arah rencana, lihat hal yang sudah tercatat, lalu sampaikan usul untuk musyawarah.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn sec" href="infografis.php">Infografis</a>
       <a class="btn sec" href="laporan.php">Laporan Progress</a>
@@ -181,41 +205,31 @@ textarea{min-height:110px;resize:vertical}
     </div>
   </div>
 
+  <section class="intro simple-intro" id="ringkasan" aria-label="Ringkasan rencana"><div class="intro-main"><div class="kicker">Rencana desa · versi ringkas</div><h2>Apa yang ingin diperbaiki?</h2><p class="lead">Rencana ini mengusulkan perbaikan pertanian, pembangunan yang merata, dukungan untuk pemuda dan pendidikan, serta pelayanan desa yang lebih mudah. Pilih bagian di bawah jika ingin membaca rinciannya.</p><p class="small-note">Ini bahan rencana, bukan janji anggaran atau dokumen yang sudah disahkan.</p><div class="quick-links"><a class="btn" href="#detail-ringkas">Lihat bidang program</a><a class="btn sec" href="#detail-masukan">Sampaikan usul</a></div></div></section>
+
   <section class="section" id="statistik">
-    <div class="kicker">Ringkasan</div><h2>Statistik Progress</h2>
-    <div class="grid">
-      <div class="card c4">
-        <div class="label">Progres Checklist 90 Hari</div>
-        <div class="stat"><?php echo $checkPct; ?>%</div>
-        <div class="progress"><div class="bar" style="width:<?php echo $checkPct; ?>%"></div></div>
-        <div class="muted"><?php echo $checkDone; ?> dari <?php echo $checkTotal; ?> item selesai</div>
-      </div>
-      <div class="card c4">
-        <div class="label">Kegiatan Monitoring</div>
-        <div class="stat"><?php echo $monitorTotal; ?></div>
-        <div class="muted">Selesai: <?php echo $monitorDone; ?> · Sesuai: <?php echo $monitorOk; ?> · Waspada: <?php echo $monitorWarn; ?> · Bermasalah: <?php echo $monitorBad; ?></div>
-      </div>
-      <div class="card c4">
-        <div class="label">Cakupan Rencana</div>
-        <div class="stat" style="font-size:22px"><?php echo count($pillars); ?> Pilar · <?php echo count($roadmap); ?> Fase</div>
-        <div class="muted"><?php echo count($year1); ?> agenda bulan · <?php echo count($quarters); ?> target kuartal · <?php echo count($semesters); ?> evaluasi semester</div>
-      </div>
-      <?php if ($statusCounts): ?>
-      <div class="card c12">
-        <h3>Status Monitoring per Kategori</h3>
-        <?php foreach ($statusCounts as $s => $c): $pct = $monitorTotal ? (int)round($c*100/$monitorTotal) : 0; ?>
-          <div style="margin:8px 0">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="badge <?php echo status_class($s); ?>"><?php echo h($s); ?></span><span class="muted"><?php echo $c; ?> kegiatan (<?php echo $pct; ?>%)</span></div>
-            <div class="progress sm"><div class="bar" style="width:<?php echo $pct; ?>%;background:<?php echo str_starts_with($s,'Hijau')?'#176b45':(str_starts_with($s,'Kuning')?'#c18a2d':(str_starts_with($s,'Merah')?'#b94c42':(str_starts_with($s,'Biru')?'#286b9b':'#8a9890'))); ?>"></div></div>
-          </div>
-        <?php endforeach; ?>
-      </div>
-      <?php endif; ?>
+    <div class="section-head"><div><div class="kicker">Gambaran singkat</div><h2>Ringkasan rencana</h2></div></div>
+    <div class="grid summary-grid">
+      <div class="card c4 metric"><div class="label">Fokus rencana</div><div class="stat"><?php echo count($pillars); ?> bidang</div><div class="muted">Usulan yang bisa dibahas bersama warga.</div></div>
+      <div class="card c4 metric"><div class="label">Persiapan</div><div class="stat" style="font-size:24px"><?php echo $checklistStarted ? $checkDone . ' langkah' : 'Belum dimulai'; ?></div><div class="muted">Dari <?php echo $checkTotal; ?> langkah awal yang tercatat.</div></div>
+      <div class="card c4 metric"><div class="label">Pelaksanaan</div><div class="stat" style="font-size:24px"><?php echo $monitorStarted ? 'Ada pembaruan' : 'Belum dinilai'; ?></div><div class="muted">Status perlu diperbarui setelah kegiatan diverifikasi.</div></div>
     </div>
   </section>
 
-  <section class="section" id="arah">
-    <div class="kicker">01 / Arah Pembangunan</div><h2>Visi & Prinsip</h2>
+  <section class="section" id="detail-ringkas"><div class="section-head"><div><div class="kicker">Peta rencana</div><h2>Perjalanan menuju desa yang lebih kuat</h2></div><p class="lead">Pilih kartu untuk melihat hal yang direncanakan pada tiap bidang.</p></div><div class="roadmap-visual"><div class="roadmap-step"><span class="num">TAHAP 1 · AWALI</span><b>Dengar & petakan</b><span>Kenali kebutuhan warga dan kondisi tiap dusun.</span></div><div class="roadmap-step"><span class="num">TAHAP 2 · SIAPKAN</span><b>Susun prioritas</b><span>Pilih usulan bersama dan siapkan langkahnya.</span></div><div class="roadmap-step"><span class="num">TAHAP 3 · KERJAKAN</span><b>Jalankan bertahap</b><span>Laksanakan program sesuai hasil musyawarah.</span></div><div class="roadmap-step"><span class="num">TAHAP 4 · TINJAU</span><b>Lihat hasil</b><span>Periksa manfaat dan perbaiki yang belum berjalan.</span></div></div>
+    <div class="section-head" style="margin-top:26px"><div><div class="kicker">Pilih bidang</div><h2>Rencana yang dekat dengan kebutuhan warga</h2></div></div>
+    <div class="grid">
+      <?php foreach ($pillars as $p): $inds = nl_to_list($p['indikator'] ?? ''); ?>
+      <button type="button" class="card program-card" data-title="<?php echo h($p['nama']); ?>" data-description="<?php echo h($p['deskripsi']); ?>" data-indicators="<?php echo h(json_encode($inds, JSON_UNESCAPED_UNICODE | JSON_HEX_APOS | JSON_HEX_QUOT)); ?>" style="text-align:left;font:inherit"><div class="program-top"><div class="ico"><?php echo h($p['kode'] ?: '•'); ?></div><div><div class="label">Bidang <?php echo h((string)$p['kode']); ?></div><h3><?php echo h($p['nama']); ?></h3></div></div><div class="program-desc"><?php echo h(mb_strimwidth($p['deskripsi'], 0, 105, '…', 'UTF-8')); ?></div><span class="program-open">Lihat rencana →</span></button>
+      <?php endforeach; ?>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="detail-heading"><div class="section-head"><div><div class="kicker">Informasi tambahan</div><h2 id="detail-heading">Jelajahi rincian bila diperlukan</h2></div><p class="lead">Informasi dikelompokkan agar mudah dicari.</p></div>
+    <div class="detail-list">
+
+  <details class="detail-card wide" id="detail-visi"><summary>Arah dan tujuan desa</summary><div class="detail-body"><section class="section" id="arah">
+    <div class="kicker">01 · Tujuan bersama</div><h2>Arah pembangunan desa</h2>
     <div class="grid">
       <?php if ($visi): ?><div class="card c8"><h3>Visi Operasional</h3><p style="font-size:16px;color:#294b38;margin:0"><?php echo nl2br(h($visi)); ?></p></div><?php endif; ?>
       <div class="card c4">
@@ -227,54 +241,42 @@ textarea{min-height:110px;resize:vertical}
         <?php $prs = nl_to_list($prinsip); if ($prs): ?><div class="flow"><?php foreach ($prs as $i=>$p): if($i>0): ?><i>→</i><?php endif; ?><span><?php echo h($p); ?></span><?php endforeach; ?></div><?php else: ?><div class="muted">Belum diisi.</div><?php endif; ?>
       </div>
     </div>
-  </section>
+  </section></div></details>
 
-  <section class="section" id="baseline">
-    <div class="kicker">02 / Kondisi Awal</div><h2>Baseline Desa</h2>
-    <p class="lead">Data historis sebagai titik awal. Perlu validasi ulang sebelum target dan anggaran ditetapkan.</p>
+  <details class="detail-card" id="detail-data"><summary>Data kondisi desa</summary><div class="detail-body"><section class="section" id="baseline">
+    <div class="kicker">02 · Mengenali kondisi desa</div><h2>Data yang menjadi titik awal</h2>
+    <p class="lead">Angka historis membantu melihat gambaran awal. Pastikan tahun dan sumber data selalu terbaca, lalu perbarui bersama data resmi terbaru.</p>
+    <?php if (!$baselineIsVerified): ?><div class="status-note" style="margin-bottom:12px"><b>Perlu diperiksa kembali.</b> Data awal di bawah masih mencantumkan riwayat lama atau belum menunjukkan tanda validasi. Gunakan sebagai petunjuk untuk pendataan, bukan angka terkini.</div><?php endif; ?>
     <?php if ($baseline): ?><div class="grid" style="margin-bottom:12px">
       <?php foreach ($baseline as $b): ?><div class="card c3"><div class="label"><?php echo h($b['label']); ?></div><div class="stat" style="font-size:26px"><?php echo h($b['nilai']); ?></div><div class="muted"><?php echo h($b['keterangan']); ?></div></div><?php endforeach; ?>
     </div><?php endif; ?>
     <?php if ($groupedBaselineTasks): ?><div class="card"><h3>Data yang Harus Diverifikasi</h3><div class="grid">
       <?php foreach ($groupedBaselineTasks as $kel => $items): ?><div class="c4"><b style="font-size:13px;color:#345b45"><?php echo h($kel); ?></b><ul class="clean"><?php foreach ($items as $it): ?><li><?php echo h($it['item']); ?></li><?php endforeach; ?></ul></div><?php endforeach; ?>
     </div></div><?php endif; ?>
-  </section>
-
-  <?php if ($pillars): ?>
-  <section class="section" id="pilar">
-    <div class="kicker">03 / Program Utama</div><h2><?php echo count($pillars); ?> Pilar & Indikator Hasil</h2>
-    <div class="grid">
-      <?php foreach ($pillars as $p): $inds = nl_to_list($p['indikator'] ?? ''); ?>
-        <div class="card c4"><div class="pill"><div class="ico"><?php echo h($p['kode'] ?: '•'); ?></div><div><h3><?php echo h($p['nama']); ?></h3><div class="muted"><?php echo nl2br(h($p['deskripsi'])); ?></div></div></div>
-        <?php if ($inds): ?><div style="margin-top:10px;border-top:1px solid #e8eee9;padding-top:8px"><b class="label">Indikator</b><ul class="clean"><?php foreach ($inds as $it): ?><li><?php echo h($it); ?></li><?php endforeach; ?></ul></div><?php endif; ?>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </section>
-  <?php endif; ?>
+  </section></div></details>
 
   <?php if ($roadmap): ?>
-  <section class="section" id="roadmap">
-    <div class="kicker">04 / Roadmap Strategis</div><h2>Roadmap Pembangunan</h2>
+  <details class="detail-card" id="detail-tahapan"><summary>Tahapan rencana beberapa tahun</summary><div class="detail-body"><section class="section" id="roadmap">
+    <div class="kicker">04 · Urutan perubahan</div><h2>Tahapan rencana beberapa tahun</h2><p class="lead">Setiap tahap menyiapkan langkah berikutnya. Waktu pelaksanaan tetap menyesuaikan hasil musyawarah dan dokumen resmi.</p>
     <div class="timeline">
       <?php foreach ($roadmap as $r): $pts = nl_to_list($r['poin'] ?? ''); ?>
         <div class="phase"><div class="period"><?php echo h($r['periode']); ?></div><h3><?php echo h($r['judul']); ?></h3><?php if ($pts): ?><ul class="clean"><?php foreach ($pts as $pt): ?><li><?php echo h($pt); ?></li><?php endforeach; ?></ul><?php endif; ?></div>
       <?php endforeach; ?>
     </div>
-  </section>
+  </section></div></details>
   <?php endif; ?>
 
   <?php if ($year1 || $routines): ?>
-  <section class="section" id="tahun1">
-    <div class="kicker">05 / Rencana Kerja Rinci</div><h2>Kalender Tahun Pertama & Agenda Rutin</h2>
+  <details class="detail-card" id="detail-tahun1"><summary>Rencana tahun pertama</summary><div class="detail-body"><section class="section" id="tahun1">
+    <div class="kicker">05 · Mulai dari langkah dekat</div><h2>Rencana tahun pertama</h2>
     <?php if ($year1): ?><h3>Kalender 12 Bulan</h3><div class="months" style="margin-bottom:14px"><?php foreach ($year1 as $m): ?><div class="month"><b><?php echo h($m['bulan']); ?> · <?php echo h($m['judul']); ?></b><div class="muted"><?php echo nl2br(h($m['kegiatan'])); ?></div></div><?php endforeach; ?></div><?php endif; ?>
     <?php if ($routines): ?><div class="card"><h3>Agenda Rutin</h3><div class="tablewrap"><table><thead><tr><th>Kegiatan</th><th>Frekuensi</th><th>Bukti Minimal</th></tr></thead><tbody><?php foreach ($routines as $r): ?><tr><td><?php echo h($r['kegiatan']); ?></td><td><?php echo h($r['frekuensi']); ?></td><td><?php echo h($r['bukti']); ?></td></tr><?php endforeach; ?></tbody></table></div></div><?php endif; ?>
-  </section>
+  </section></div></details>
   <?php endif; ?>
 
   <?php if ($quarters): ?>
-  <section class="section" id="kuartal">
-    <div class="kicker">06 / Kontrol Berkala</div><h2>Target per Kuartal</h2>
+  <details class="detail-card" id="detail-kuartal"><summary>Target per tiga bulan</summary><div class="detail-body"><section class="section" id="kuartal">
+    <div class="kicker">06 · Pemeriksaan tiap tiga bulan</div><h2>Apa yang ingin dicapai tiap tahap</h2>
     <div class="grid">
       <?php foreach ($quarters as $q): $tg = nl_to_list($q['target'] ?? ''); ?>
         <div class="card c6"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0"><?php echo h($q['kuartal']); ?></h3><span class="badge st-blue"><?php echo h($q['fokus']); ?></span></div>
@@ -282,51 +284,46 @@ textarea{min-height:110px;resize:vertical}
         <?php if (!empty($q['output'])): ?><div class="muted" style="margin-top:8px;border-top:1px solid #e8eee9;padding-top:6px"><b>Output:</b> <?php echo h($q['output']); ?></div><?php endif; ?></div>
       <?php endforeach; ?>
     </div>
-  </section>
+  </section></div></details>
   <?php endif; ?>
 
   <?php if ($semesters): ?>
-  <section class="section" id="semester">
+  <details class="detail-card" id="detail-semester"><summary>Evaluasi per semester</summary><div class="detail-body"><section class="section" id="semester">
     <div class="kicker">07 / Evaluasi</div><h2>Evaluasi Semester per Bidang</h2>
     <div class="card"><div class="tablewrap"><table><thead><tr><th>Bidang</th><th>Semester 1</th><th>Semester 2</th></tr></thead><tbody><?php foreach ($semesters as $s): ?><tr><td><b><?php echo h($s['bidang']); ?></b></td><td><?php echo nl2br(h($s['semester1'])); ?></td><td><?php echo nl2br(h($s['semester2'])); ?></td></tr><?php endforeach; ?></tbody></table></div></div>
-  </section>
+  </section></div></details>
   <?php endif; ?>
 
-  <section class="section" id="monitoring">
-    <div class="kicker">08 / Monitoring & Evaluasi</div><h2>Register Progres Kegiatan</h2>
+  <details class="detail-card" id="detail-monitoring"><summary>Status kegiatan dan penjelasan warna</summary><div class="detail-body"><section class="section" id="monitoring">
+    <div class="kicker">07 · Kabar pelaksanaan</div><h2>Status kegiatan yang tercatat</h2>
+    <p class="lead">Daftar ini menunjukkan tahap dan arah kerja, bukan janji tanggal selesai. Jika data progres belum masuk, status akan tertulis belum dinilai.</p>
     <?php if ($monitoring): ?>
+    <?php if (!$monitorStarted): ?><div class="status-note" style="margin-bottom:12px"><b>Belum ada laporan progres yang diverifikasi.</b> Semua status masih berupa penanda awal. Tanyakan kepada pemerintah desa tentang pembaruan hasil musyawarah dan laporan berkala.</div><?php endif; ?>
     <div class="tablewrap"><table>
-      <thead><tr><th>Kode</th><th>Program/Kegiatan</th><th>Lokasi</th><th>PIC</th><th>Target</th><th>Anggaran</th><th>Progres Fisik</th><th>Realisasi Biaya</th><th>Status</th><th>Tindak Lanjut</th></tr></thead>
+      <thead><tr><th>Kegiatan</th><th>Hal yang dituju</th><th>Status</th></tr></thead>
       <tbody><?php foreach ($monitoring as $m): ?><tr>
-        <td><b><?php echo h($m['kode']); ?></b></td>
         <td><?php echo h($m['program']); ?></td>
-        <td><?php echo h($m['lokasi']); ?></td>
-        <td><?php echo h($m['pic']); ?></td>
         <td><?php echo h($m['target']); ?></td>
-        <td><?php echo h($m['anggaran']); ?></td>
-        <td><?php echo h($m['progres_fisik']); ?></td>
-        <td><?php echo h($m['realisasi_biaya']); ?></td>
         <td><span class="badge <?php echo status_class($m['status'] ?? ''); ?>"><?php echo h($m['status'] ?: 'Belum dinilai'); ?></span></td>
-        <td><?php echo nl2br(h($m['tindak_lanjut'] ?? '')); ?></td>
       </tr><?php endforeach; ?></tbody>
     </table></div>
     <?php else: ?><div class="card muted">Belum ada data monitoring.</div><?php endif; ?>
-  </section>
+  </section></div></details>
 
   <?php if ($groupedBudget): ?>
-  <section class="section" id="anggaran">
+  <details class="detail-card" id="detail-anggaran"><summary>Catatan tentang anggaran</summary><div class="detail-body"><section class="section" id="anggaran">
     <div class="kicker">09 / Disiplin Anggaran</div><h2>Strategi & Catatan Anggaran</h2>
     <div class="grid">
       <?php foreach ($groupedBudget as $kat => $items): ?><div class="card c6"><h3><?php echo h($kat); ?></h3><ul class="clean"><?php foreach ($items as $it): ?><li><?php echo h($it['item']); ?></li><?php endforeach; ?></ul></div><?php endforeach; ?>
     </div>
-  </section>
+  </section></div></details>
   <?php endif; ?>
 
-  <section class="section" id="checklist">
-    <div class="kicker">10 / Langkah Awal</div><h2>Checklist 90 Hari Pertama</h2>
+  <details class="detail-card" id="detail-checklist"><summary>Langkah persiapan tiga bulan pertama</summary><div class="detail-body"><section class="section" id="checklist">
+    <div class="kicker">08 · Tiga bulan pertama</div><h2>Langkah awal yang perlu disiapkan</h2>
+    <p class="lead">Tandai pekerjaan yang sudah selesai melalui admin. Warga dapat memakai daftar ini untuk mengikuti proses persiapan desa.</p>
     <div class="card" style="margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;align-items:center"><b>Progres keseluruhan</b><b style="color:var(--green)"><?php echo $checkPct; ?>% (<?php echo $checkDone; ?>/<?php echo $checkTotal; ?>)</b></div>
-      <div class="progress"><div class="bar" style="width:<?php echo $checkPct; ?>%"></div></div>
+      <div class="checklist-summary"><div class="checklist-ring" style="--pct:<?php echo $checkPct; ?>"><b><?php echo $checklistStarted ? $checkPct.'%' : '0%'; ?></b></div><div><b><?php echo $checklistStarted ? 'Kemajuan persiapan' : 'Persiapan belum ditandai selesai'; ?></b><div class="muted" style="margin-top:5px"><?php echo $checkDone; ?> dari <?php echo $checkTotal; ?> langkah dicatat selesai. Persentase ini mengikuti centang admin.</div></div></div>
     </div>
     <?php if ($groupedChecklist): ?>
       <?php foreach ($groupedChecklist as $tahap => $items): $done = 0; foreach($items as $i){ if((int)$i['selesai']===1) $done++; } $tot = count($items); $pct = $tot? (int)round($done*100/$tot):0; ?>
@@ -339,21 +336,21 @@ textarea{min-height:110px;resize:vertical}
         </div>
       <?php endforeach; ?>
     <?php else: ?><div class="card muted">Belum ada item checklist.</div><?php endif; ?>
-  </section>
+  </section></div></details>
 
   <?php if ($notes): ?>
-  <section class="section" id="catatan">
+  <details class="detail-card"><summary>Catatan dokumen dan kebijakan</summary><div class="detail-body"><section class="section" id="catatan">
     <div class="kicker">11 / Catatan Kebijakan</div><h2>Dokumen & Referensi</h2>
     <?php foreach ($notes as $n): ?>
       <div class="note-box"><h3><?php echo h($n['judul']); ?></h3><div class="muted" style="color:#425a4c"><?php echo nl2br(h($n['isi'])); ?></div></div>
     <?php endforeach; ?>
-  </section>
+  </section></div></details>
   <?php endif; ?>
 
-  <section class="section" id="kritik-saran">
-    <div class="kicker">12 / Partisipasi Warga</div><h2>Kritik &amp; Saran</h2>
+  <details class="detail-card wide" id="detail-masukan"><summary>Sampaikan usul atau masukan</summary><div class="detail-body"><section class="section" id="kritik-saran">
+    <div class="kicker">09 · Suara warga</div><h2>Usul dan masukan untuk desa</h2>
     <div class="grid">
-      <div class="card c8">
+      <div class="card c8 feedback-card">
         <?php if ($fb_msg): ?><div class="alert ok"><?php echo h($fb_msg); ?></div><?php endif; ?>
         <?php if ($fb_err): ?><div class="alert err"><?php echo h($fb_err); ?></div><?php endif; ?>
         <form method="post" action="#kritik-saran">
@@ -381,9 +378,64 @@ textarea{min-height:110px;resize:vertical}
         </ul>
       </div>
     </div>
+  </section></div></details>
+
+    </div>
   </section>
 
   <div class="muted" style="text-align:center;padding:12px 0 4px">Data ditampilkan dari sistem pengelolaan perencanaan desa. Pembaruan dilakukan oleh admin melalui halaman pengelolaan.</div>
 </main>
+<div class="detail-modal" id="detailModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-panel"><div class="modal-head"><h2 id="modalTitle">Rincian program</h2><button class="modal-close" type="button" aria-label="Tutup rincian">×</button></div><div class="modal-content" id="modalContent"></div></div></div>
+<script>
+(() => {
+  const modal = document.getElementById('detailModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalContent = document.getElementById('modalContent');
+  const closeModal = () => {
+    modal.setAttribute('aria-hidden', 'true');
+    modalContent.replaceChildren();
+    document.body.style.overflow = '';
+  };
+  const openModal = (title, content) => {
+    modalTitle.textContent = title;
+    modalContent.replaceChildren(content);
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.modal-close').focus();
+  };
+  document.querySelectorAll('.program-card').forEach(button => button.addEventListener('click', () => {
+    const content = document.createElement('div');
+    const heading = document.createElement('h3');
+    heading.textContent = button.dataset.title;
+    const description = document.createElement('p');
+    description.className = 'lead';
+    description.textContent = button.dataset.description;
+    const listTitle = document.createElement('b');
+    listTitle.textContent = 'Hasil yang ingin dicapai';
+    const list = document.createElement('ul');
+    list.className = 'clean';
+    JSON.parse(button.dataset.indicators || '[]').forEach(item => { const li = document.createElement('li'); li.textContent = item; list.appendChild(li); });
+    content.append(heading, description, listTitle, list);
+    openModal(button.dataset.title, content);
+  }));
+  document.querySelector('.modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal(); });
+  document.querySelectorAll('a[href^="#detail-"]').forEach(link => link.addEventListener('click', event => {
+    const details = document.querySelector(link.getAttribute('href'));
+    const summary = details?.querySelector('summary');
+    if (!summary) return;
+    event.preventDefault();
+    summary.click();
+  }));
+  document.querySelectorAll('.detail-card summary').forEach(summary => summary.addEventListener('click', event => {
+    event.preventDefault();
+    const details = summary.parentElement;
+    const section = details.querySelector('.detail-body .section');
+    if (!section) { details.open = !details.open; return; }
+    openModal(summary.textContent.trim(), section.cloneNode(true));
+  }));
+})();
+</script>
 </body>
 </html>
