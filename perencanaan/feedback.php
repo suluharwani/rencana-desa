@@ -22,15 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $rows = $pdo->query('SELECT * FROM feedback ORDER BY created_at DESC, id DESC')->fetchAll();
 $statuses = ['Baru', 'Dibaca', 'Ditindaklanjuti', 'Selesai'];
-page_start('Kritik & Saran', 'feedback');
+page_start('Masukan & Survei UMKM', 'feedback');
 ?>
 <div class="top">
-  <h2>Kritik &amp; Saran Publik</h2>
+  <h2>Masukan Publik &amp; Survei UMKM</h2>
   <?php if ($rows): ?>
   <form method="post"><button class="btn danger" name="action" value="delete_all" onclick="return confirm('Hapus semua kritik/saran?')">Hapus Semua</button></form>
   <?php endif; ?>
 </div>
-<div class="card"><div class="muted">Masukan dari halaman publik. Total: <b><?php echo count($rows); ?></b></div></div>
+<div class="card"><div class="muted">Masukan umum dan jawaban survei UMKM dari halaman publik. Jenis usaha tersimpan pada kolom Jenis; pilihan rencana dan usulan ada pada kolom Pesan. Total: <b><?php echo count($rows); ?></b></div></div>
 <?php foreach ($rows as $r): ?>
 <div class="card">
   <form method="post">

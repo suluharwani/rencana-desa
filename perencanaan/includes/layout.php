@@ -12,7 +12,7 @@ function page_start(string $title, string $active = ''): void {
         'anggaran' => ['label' => 'Anggaran', 'href' => 'anggaran.php'],
         'checklist' => ['label' => 'Checklist 90 Hari', 'href' => 'checklist.php'],
         'catatan' => ['label' => 'Catatan', 'href' => 'catatan.php'],
-        'feedback' => ['label' => 'Kritik & Saran', 'href' => 'feedback.php'],
+        'feedback' => ['label' => 'Masukan & Survei UMKM', 'href' => 'feedback.php'],
     ];
     ?>
 <!DOCTYPE html>

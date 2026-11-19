@@ -235,7 +235,7 @@ textarea{min-height:110px;resize:vertical}
 </div><figure class="candidate-card"><img src="<?php echo h($candidatePhoto); ?>" alt="Poster dukungan untuk calon kepala desa Mas Eri" width="864" height="1296" fetchpriority="high"><figcaption><b>Dukungan untuk Mas Eri</b><span class="candidate-caption">Libatkan warga, berpihak untuk warga</span></figcaption></figure></div></header>
 
 <nav><div class="wrap navinner">
-  <a href="#ringkasan">Ringkasan</a><a href="#detail-ringkas">Program</a><a href="#detail-tahapan">Tahapan</a><a href="#detail-data">Data desa</a><a href="#detail-masukan">Sampaikan usul</a>
+  <a href="#ringkasan">Ringkasan</a><a href="#detail-ringkas">Program</a><a href="#detail-tahapan">Tahapan</a><a href="survey_umkm.php">Survei UMKM</a><a href="#detail-data">Data desa</a><a href="#detail-masukan">Sampaikan usul</a>
 </div></nav>
 
 <main class="wrap">
@@ -243,12 +243,13 @@ textarea{min-height:110px;resize:vertical}
     <div class="muted">Kenali arah rencana, lihat hal yang sudah tercatat, lalu sampaikan usul untuk musyawarah.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn sec" href="infografis.php">Infografis</a>
+      <a class="btn sec" href="survey_umkm.php">Survei UMKM</a>
       <a class="btn sec" href="laporan.php">Laporan Progress</a>
       <a class="btn" href="login.php">Login Admin</a>
     </div>
   </div>
 
-  <section class="intro simple-intro" id="ringkasan" aria-label="Ringkasan rencana"><div class="intro-main"><div class="kicker">Rencana desa · versi ringkas</div><h2>Apa yang ingin diperbaiki?</h2><p class="lead">Rencana ini mengusulkan perbaikan pertanian, pembangunan yang merata, dukungan untuk pemuda dan pendidikan, serta pelayanan desa yang lebih mudah. Rincian tiap bidang, langkah, dan target dijabarkan langsung di halaman ini.</p><p class="small-note">Ini bahan rencana, bukan janji anggaran atau dokumen yang sudah disahkan.</p><div class="quick-links"><a class="btn" href="#detail-ringkas">Lihat bidang program</a><a class="btn sec" href="#detail-masukan">Sampaikan usul</a></div></div></section>
+  <section class="intro simple-intro" id="ringkasan" aria-label="Ringkasan rencana"><div class="intro-main"><div class="kicker">Rencana desa · versi ringkas</div><h2>Apa yang ingin diperbaiki?</h2><p class="lead">Rencana ini mengusulkan perbaikan pertanian, pembangunan yang merata, dukungan untuk pemuda dan pendidikan, serta pelayanan desa yang lebih mudah. Rincian tiap bidang, langkah, dan target dijabarkan langsung di halaman ini.</p><p class="small-note">Ini bahan rencana, bukan janji anggaran atau dokumen yang sudah disahkan.</p><div class="quick-links"><a class="btn" href="#detail-ringkas">Lihat bidang program</a><a class="btn sec" href="survey_umkm.php">Isi survei UMKM</a><a class="btn sec" href="#detail-masukan">Sampaikan usul</a></div></div></section>
 
   <section class="section" id="detail-ringkas"><div class="section-head"><div><div class="kicker">Peta rencana</div><h2>Perjalanan menuju desa yang lebih kuat</h2></div><p class="lead">Rencana setiap bidang dan hasil yang ingin dicapai dijabarkan langsung di bawah.</p></div><div class="roadmap-visual"><div class="roadmap-step"><span class="num">TAHAP 1 · AWALI</span><b>Dengar & petakan</b><span>Kenali kebutuhan warga dan kondisi tiap dusun.</span></div><div class="roadmap-step"><span class="num">TAHAP 2 · SIAPKAN</span><b>Susun prioritas</b><span>Pilih usulan bersama dan siapkan langkahnya.</span></div><div class="roadmap-step"><span class="num">TAHAP 3 · KERJAKAN</span><b>Jalankan bertahap</b><span>Laksanakan program sesuai hasil musyawarah.</span></div><div class="roadmap-step"><span class="num">TAHAP 4 · TINJAU</span><b>Lihat hasil</b><span>Periksa manfaat dan perbaiki yang belum berjalan.</span></div></div>
     <div class="section-head" style="margin-top:26px"><div><div class="kicker">Pilih bidang</div><h2>Rencana yang dekat dengan kebutuhan warga</h2></div></div>
